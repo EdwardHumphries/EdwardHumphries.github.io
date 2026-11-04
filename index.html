@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Edward Rios - Physicist and Computational Scientist">
+
+    <meta name="description"
+        content="Edward Rios - Physicist, Computational Scientist and Researcher">
+
     <title>Edward Rios | Computational Scientist</title>
 
     <style>
+        :root {
+            --blue: #2563eb;
+            --dark: #172b4d;
+            --text: #475569;
+            --light: #f5f8fc;
+            --border: #e2e8f0;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,187 +27,336 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #ffffff;
-            color: #243247;
+            color: var(--text);
             line-height: 1.7;
+            background: white;
         }
 
+        a {
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 0 30px;
+        }
+
+        /* NAVIGATION */
+
         header {
-            background: #ffffff;
-            border-bottom: 1px solid #e5eaf0;
-            padding: 20px 8%;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
+            background: rgba(255,255,255,0.96);
+            border-bottom: 1px solid var(--border);
         }
 
         nav {
+            max-width: 1150px;
+            margin: auto;
+            padding: 18px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
         }
 
         .logo {
-            font-size: 22px;
+            color: var(--dark);
+            font-size: 21px;
             font-weight: bold;
-            color: #174ea6;
         }
 
-        nav a {
-            text-decoration: none;
-            color: #34445c;
-            margin-left: 22px;
+        .nav-links {
+            display: flex;
+            gap: 27px;
+        }
+
+        .nav-links a {
+            color: var(--text);
             font-size: 14px;
         }
 
-        nav a:hover {
-            color: #2563eb;
+        .nav-links a:hover {
+            color: var(--blue);
         }
 
+        /* HERO */
+
         .hero {
-            background: #f3f7fc;
-            padding: 110px 10%;
-            text-align: center;
+            background: var(--light);
+            padding: 95px 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.4fr 0.8fr;
+            align-items: center;
+            gap: 65px;
+        }
+
+        .intro-label {
+            color: var(--blue);
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .hero h1 {
-            font-size: 48px;
-            color: #172b4d;
-            margin-bottom: 12px;
+            font-size: 55px;
+            color: var(--dark);
+            line-height: 1.15;
+            margin: 15px 0;
         }
 
         .hero h2 {
-            font-size: 21px;
-            color: #2563eb;
+            color: var(--blue);
+            font-size: 22px;
             font-weight: 500;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .hero p {
-            max-width: 700px;
-            margin: auto;
-            color: #526176;
+            max-width: 620px;
+            font-size: 16px;
         }
 
-        .button {
+        .hero-photo {
+            width: 100%;
+            max-width: 360px;
+            height: 430px;
+            object-fit: cover;
+            object-position: center 35%;
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(23,43,77,0.13);
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        .btn {
             display: inline-block;
-            margin-top: 28px;
-            padding: 12px 25px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
+            padding: 12px 23px;
             border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
         }
 
-        .button:hover {
-            background: #174ea6;
+        .btn-primary {
+            background: var(--blue);
+            color: white;
         }
+
+        .btn-outline {
+            border: 1px solid var(--blue);
+            color: var(--blue);
+        }
+
+        /* GENERAL SECTIONS */
 
         section {
-            padding: 75px 10%;
-            max-width: 1200px;
-            margin: auto;
+            padding: 85px 0;
+            scroll-margin-top: 75px;
         }
 
-        section h2 {
-            font-size: 30px;
-            color: #172b4d;
-            margin-bottom: 25px;
+        .section-title {
+            color: var(--dark);
+            font-size: 32px;
+            margin-bottom: 12px;
         }
 
-        .about p {
+        .section-description {
+            max-width: 720px;
+            margin-bottom: 38px;
+        }
+
+        /* ABOUT */
+
+        .about-content {
             max-width: 850px;
-            color: #526176;
         }
 
-        .projects {
-            background: #f8fafc;
-            max-width: none;
-            padding-left: 10%;
-            padding-right: 10%;
+        /* RESEARCH */
+
+        .projects-section {
+            background: var(--light);
         }
 
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 22px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
         }
 
         .project-card {
             background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(23,43,77,0.09);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .project-info {
             padding: 25px;
-            border: 1px solid #e5eaf0;
+        }
+
+        .project-info h3 {
+            color: var(--dark);
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .project-tag {
+            display: inline-block;
+            color: var(--blue);
+            background: #edf4ff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* SKILLS */
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .skill-box {
+            border: 1px solid var(--border);
+            padding: 25px;
             border-radius: 9px;
         }
 
-        .project-card h3 {
-            color: #174ea6;
-            margin-bottom: 12px;
+        .skill-box h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
         }
 
-        .project-card p {
-            color: #526176;
-            font-size: 14px;
-        }
-
-        .skills-list {
+        .skill-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 9px;
         }
 
         .skill {
-            background: #edf4ff;
-            color: #174ea6;
-            padding: 9px 17px;
+            background: var(--light);
+            padding: 7px 11px;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        .education p,
-        .contact p {
-            margin-bottom: 12px;
-            color: #526176;
+        /* EDUCATION */
+
+        .education-content {
+            display: grid;
+            grid-template-columns: 1fr 0.8fr;
+            align-items: center;
+            gap: 45px;
         }
 
-        .contact a {
-            color: #2563eb;
-            text-decoration: none;
+        .degree {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .degree h3 {
+            color: var(--dark);
+            font-size: 19px;
+        }
+
+        .graduation-photo {
+            width: 100%;
+            max-height: 430px;
+            object-fit: cover;
+            object-position: center 30%;
+            border-radius: 12px;
+        }
+
+        /* CONTACT */
+
+        .contact-section {
+            background: var(--light);
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .contact-links a {
+            color: var(--blue);
+            font-weight: bold;
         }
 
         footer {
-            background: #172b4d;
+            background: var(--dark);
             color: white;
             text-align: center;
             padding: 25px;
             font-size: 13px;
         }
 
-        @media (max-width: 600px) {
-            header {
-                padding: 15px 5%;
-            }
+        /* MOBILE */
 
-            nav {
-                justify-content: center;
-            }
+        @media (max-width: 750px) {
 
-            nav a {
-                margin: 0 8px;
+            .hero-content,
+            .education-content {
+                grid-template-columns: 1fr;
             }
 
             .hero {
-                padding: 75px 6%;
+                padding: 65px 0;
             }
 
             .hero h1 {
-                font-size: 36px;
+                font-size: 42px;
+            }
+
+            .hero-photo {
+                max-width: 300px;
+                height: 350px;
+            }
+
+            .project-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 12px;
             }
 
             section {
-                padding: 55px 7%;
+                padding: 60px 0;
             }
         }
     </style>
@@ -204,158 +364,328 @@
 
 <body>
 
-    <header>
-        <nav>
-            <div class="logo">Edward Rios</div>
+<header>
+    <nav>
+        <div class="logo">Edward Rios</div>
+
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#research">Research</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <!-- HOMEPAGE -->
+
+    <div class="hero">
+        <div class="container hero-content">
 
             <div>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#skills">Skills</a>
-                <a href="#education">Education</a>
-                <a href="#contact">Contact</a>
+                <div class="intro-label">
+                    Physicist & Computational Scientist
+                </div>
+
+                <h1>Edward Rios</h1>
+
+                <h2>Research. Computation. Discovery.</h2>
+
+                <p>
+                    I am a physicist with an M.S. in Physics from
+                    the Georgia Institute of Technology.
+
+                    My research experience includes plasma physics,
+                    computational modeling, molecular dynamics,
+                    numerical simulations, and complex physical systems.
+
+                    I am interested in using computational methods
+                    to understand challenging scientific problems.
+                </p>
+
+                <div class="buttons">
+                    <a href="#research" class="btn btn-primary">
+                        Explore Research
+                    </a>
+
+                    <a href="#contact" class="btn btn-outline">
+                        Contact Me
+                    </a>
+                </div>
             </div>
-        </nav>
-    </header>
 
-    <main>
+            <div>
+                <img
+                    src="images/profile.jpg"
+                    alt="Edward Rios professional portrait"
+                    class="hero-photo">
+            </div>
 
-        <div class="hero">
-            <h1>Edward Rios</h1>
-            <h2>Physicist | Computational Scientist</h2>
-
-            <p>
-                M.S. in Physics graduate with experience in computational
-                modeling, numerical simulations, scientific programming,
-                and data analysis. Interested in applying computational
-                methods to complex scientific problems.
-            </p>
-
-            <a href="#projects" class="button">Explore My Projects</a>
         </div>
+    </div>
 
-        <section class="about" id="about">
-            <h2>About Me</h2>
+    <!-- ABOUT -->
 
-            <p>
-                I am a physicist with a background in computational physics
-                and astronomy. My academic and research experience has
-                focused on numerical methods, scientific computing,
-                simulations, and the study of complex physical systems.
+    <section id="about">
+        <div class="container">
 
-                I completed my M.S. in Physics at the Georgia Institute
-                of Technology and my undergraduate studies in Physics
-                and Astronomy at Valdosta State University.
+            <h2 class="section-title">About Me</h2>
 
-                I have also gained research experience at the Princeton
-                Plasma Physics Laboratory, where I worked on molecular
-                dynamics simulations involving boron and deuterium.
+            <div class="about-content">
+                <p>
+                    My academic background is in Physics and Astronomy,
+                    with a strong focus on computational science.
+
+                    I completed my undergraduate studies at
+                    Valdosta State University and earned my
+                    Master's degree in Physics at Georgia Tech.
+
+                    During my research internship at Princeton
+                    Plasma Physics Laboratory, I worked on
+                    molecular dynamics simulations studying
+                    deuterium diffusion in boron.
+
+                    My interests include computational physics,
+                    plasma physics, gravity, active matter,
+                    numerical modeling, and scientific computing.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- RESEARCH -->
+
+    <section class="projects-section" id="research">
+        <div class="container">
+
+            <h2 class="section-title">Research & Projects</h2>
+
+            <p class="section-description">
+                Selected research experiences and computational
+                projects from my academic and scientific work.
             </p>
-        </section>
-
-        <section class="projects" id="projects">
-            <h2>Research & Projects</h2>
 
             <div class="project-grid">
 
                 <div class="project-card">
-                    <h3>Plasma Physics Research</h3>
-                    <p>
-                        Research internship at Princeton Plasma Physics
-                        Laboratory studying deuterium diffusion in
-                        alpha-rhombohedral boron using molecular
-                        dynamics simulations and LAMMPS.
-                    </p>
+
+                    <img
+                        src="images/pppl-research-poster.jpg"
+                        alt="Edward Rios presenting his research poster at PPPL"
+                        class="project-image">
+
+                    <div class="project-info">
+
+                        <span class="project-tag">
+                            Plasma Physics · Summer 2025
+                        </span>
+
+                        <h3>Boron–Deuterium Diffusion</h3>
+
+                        <p>
+                            At Princeton Plasma Physics Laboratory,
+                            I studied deuterium diffusion in
+                            alpha-rhombohedral boron using
+                            molecular dynamics simulations.
+
+                            The project involved LAMMPS,
+                            interatomic potentials, and
+                            computational analysis.
+                        </p>
+
+                    </div>
                 </div>
 
                 <div class="project-card">
-                    <h3>Suspended Animation</h3>
-                    <p>
-                        Computational study of active matter systems
-                        and the survival of biological patterns
-                        under reduced energy conditions.
-                    </p>
+
+                    <div class="project-info">
+
+                        <span class="project-tag">
+                            Active Matter · 2026
+                        </span>
+
+                        <h3>Suspended Animation</h3>
+
+                        <p>
+                            Computational study of active biological
+                            patterns and their survival under reduced
+                            energy conditions.
+
+                            The project combines active matter,
+                            phase separation, and glass physics.
+                        </p>
+
+                    </div>
                 </div>
 
                 <div class="project-card">
-                    <h3>Three Body Problem</h3>
-                    <p>
-                        Numerical simulation of gravitational
-                        interactions in three-body systems using
-                        Python and the DOP853 numerical solver.
-                    </p>
+
+                    <div class="project-info">
+
+                        <span class="project-tag">
+                            Computational Physics
+                        </span>
+
+                        <h3>Three-Body Problem</h3>
+
+                        <p>
+                            Numerical investigation of gravitational
+                            interactions in three-body systems.
+
+                            Implemented numerical integration
+                            using Python and the DOP853 solver.
+                        </p>
+
+                    </div>
                 </div>
 
                 <div class="project-card">
-                    <h3>Quantum Phase Estimation</h3>
-                    <p>
-                        Simulation of quantum phase estimation
-                        under imperfect gates, comparing standard
-                        and approximate quantum Fourier transforms.
-                    </p>
+
+                    <div class="project-info">
+
+                        <span class="project-tag">
+                            Quantum Information
+                        </span>
+
+                        <h3>Quantum Phase Estimation</h3>
+
+                        <p>
+                            Simulation of quantum phase estimation
+                            under imperfect gates, comparing
+                            standard and approximate quantum
+                            Fourier transforms.
+                        </p>
+
+                    </div>
                 </div>
 
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="skills">
-            <h2>Technical Skills</h2>
+    <!-- SKILLS -->
 
-            <div class="skills-list">
-                <span class="skill">Python</span>
-                <span class="skill">C++</span>
-                <span class="skill">SQL</span>
-                <span class="skill">NumPy</span>
-                <span class="skill">SciPy</span>
-                <span class="skill">Matplotlib</span>
-                <span class="skill">LAMMPS</span>
-                <span class="skill">Linux</span>
-                <span class="skill">Bash</span>
-                <span class="skill">Git</span>
-                <span class="skill">Numerical Methods</span>
-                <span class="skill">Data Analysis</span>
-                <span class="skill">Scientific Computing</span>
+    <section id="skills">
+        <div class="container">
+
+            <h2 class="section-title">Technical Skills</h2>
+
+            <p class="section-description">
+                Programming tools, computational methods,
+                and scientific technologies.
+            </p>
+
+            <div class="skills-grid">
+
+                <div class="skill-box">
+                    <h3>Programming</h3>
+
+                    <div class="skill-list">
+                        <span class="skill">Python</span>
+                        <span class="skill">C++</span>
+                        <span class="skill">SQL</span>
+                        <span class="skill">Bash</span>
+                    </div>
+                </div>
+
+                <div class="skill-box">
+                    <h3>Scientific Computing</h3>
+
+                    <div class="skill-list">
+                        <span class="skill">NumPy</span>
+                        <span class="skill">SciPy</span>
+                        <span class="skill">Matplotlib</span>
+                        <span class="skill">LAMMPS</span>
+                        <span class="skill">Linux</span>
+                    </div>
+                </div>
+
+                <div class="skill-box">
+                    <h3>Methods</h3>
+
+                    <div class="skill-list">
+                        <span class="skill">Numerical Methods</span>
+                        <span class="skill">Data Analysis</span>
+                        <span class="skill">Molecular Dynamics</span>
+                        <span class="skill">Simulation</span>
+                        <span class="skill">Data Visualization</span>
+                    </div>
+                </div>
+
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="education" id="education">
-            <h2>Education</h2>
+    <!-- EDUCATION -->
+
+    <section id="education">
+        <div class="container">
+
+            <div class="education-content">
+
+                <div>
+                    <h2 class="section-title">Education</h2>
+
+                    <div class="degree">
+                        <h3>M.S. in Physics</h3>
+                        <p>Georgia Institute of Technology</p>
+                    </div>
+
+                    <div class="degree">
+                        <h3>B.S. in Physics and Astronomy</h3>
+                        <p>Valdosta State University</p>
+                    </div>
+
+                </div>
+
+                <div>
+                    <img
+                        src="images/graduation.jpg"
+                        alt="Edward Rios at graduation"
+                        class="graduation-photo">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+
+            <h2 class="section-title">Get in Touch</h2>
 
             <p>
-                <strong>M.S. in Physics</strong><br>
-                Georgia Institute of Technology
+                I welcome professional opportunities,
+                research collaborations, and conversations
+                related to physics, computational science,
+                and scientific research.
             </p>
 
-            <p>
-                <strong>B.S. in Physics and Astronomy</strong><br>
-                Valdosta State University
-            </p>
-        </section>
+            <div class="contact-links">
 
-        <section class="contact" id="contact">
-            <h2>Contact</h2>
-
-            <p>
-                I welcome opportunities related to computational
-                science, physics, research, and data analysis.
-            </p>
-
-            <p>
-                GitHub:
-                <a href="https://github.com/EdwardHumphries">
-                    EdwardHumphries
+                <a href="https://github.com/EdwardHumphries"
+                   target="_blank">
+                    GitHub
                 </a>
-            </p>
 
-            <!-- Add your LinkedIn and professional email here -->
+                <!-- Add your LinkedIn and email here -->
 
-        </section>
+            </div>
 
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <p>© 2026 Edward Rios. All rights reserved.</p>
-    </footer>
+</main>
+
+<footer>
+    © 2026 Edward Rios. All rights reserved.
+</footer>
 
 </body>
 </html>
