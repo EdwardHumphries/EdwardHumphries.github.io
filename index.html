@@ -54,6 +54,11 @@
     .nav-links { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 20px; }
     .nav-links a { color: var(--text); font-size: 14px; transition: color .2s; }
     .nav-links a:hover { color: var(--blue); }
+    .nav-links a[aria-current="page"] {
+      color: var(--blue);
+      font-weight: 700;
+    }
+    .page-view[hidden] { display: none !important; }
 
     /* Homepage */
     .hero { background: var(--light); padding: 88px 0; }
@@ -288,19 +293,20 @@
 <body>
   <header>
     <nav aria-label="Main navigation">
-      <a class="logo" href="#home">Edward Rios</a>
+      <a class="logo" href="#home" data-view="home">Edward Rios</a>
       <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#research">Research</a>
-        <a href="#skills">Skills</a>
-        <a href="#education">Education</a>
-        <a href="#teaching">Teaching</a>
-        <a href="#contact">Contact</a>
+        <a href="#about" data-home-section="about">About</a>
+        <a href="#research" data-view="research">Research</a>
+        <a href="#skills" data-home-section="skills">Skills</a>
+        <a href="#education" data-home-section="education">Education</a>
+        <a href="#teaching" data-home-section="teaching">Teaching</a>
+        <a href="#contact" data-view="contact">Contact</a>
       </div>
     </nav>
   </header>
 
   <main>
+    <div class="page-view" id="home-view">
     <!-- Homepage -->
     <section class="hero" id="home">
       <div class="container hero-content">
@@ -346,7 +352,10 @@
       </div>
     </section>
 
-    <!-- Research -->
+    </div>
+
+    <!-- Research opens as its own view in the same browser tab -->
+    <div class="page-view" id="research-view" hidden>
     <section class="research-section" id="research">
       <div class="container">
         <h2 class="section-title">Research &amp; Projects</h2>
@@ -455,7 +464,11 @@
       </div>
     </section>
 
+    </section>
+    </div>
+
     <!-- Skills -->
+    <div class="page-view" id="home-details-view" hidden>
     <section id="skills">
       <div class="container">
         <h2 class="section-title">Technical Skills</h2>
@@ -551,7 +564,10 @@
       </div>
     </section>
 
-    <!-- Contact -->
+    </div>
+
+    <!-- Contact opens as its own view in the same browser tab -->
+    <div class="page-view" id="contact-view" hidden>
     <section id="contact">
       <div class="container">
         <h2 class="section-title">Get in Touch</h2>
@@ -566,10 +582,93 @@
         </div>
       </div>
     </section>
+    </div>
   </main>
 
   <footer>
     © 2026 Edward Rios. All rights reserved.
   </footer>
+
+  <script>
+    (() => {
+      const views = {
+        home: [
+          document.getElementById("home-view"),
+          document.getElementById("home-details-view")
+        ],
+        research: [document.getElementById("research-view")],
+        contact: [document.getElementById("contact-view")]
+      };
+
+      const viewLinks = document.querySelectorAll("[data-view]");
+      const homeSectionLinks = document.querySelectorAll("[data-home-section]");
+
+      function showView(name, sectionId = null, updateHistory = true) {
+        const selected = views[name] ? name : "home";
+
+        Object.entries(views).forEach(([key, elements]) => {
+          elements.forEach(element => {
+            element.hidden = key !== selected;
+          });
+        });
+
+        viewLinks.forEach(link => {
+          if (link.dataset.view === selected) {
+            link.setAttribute("aria-current", "page");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+
+        if (updateHistory) {
+          const hash = sectionId ? `#${sectionId}` :
+            selected === "home" ? "#home" : `#${selected}`;
+          history.pushState({ view: selected, section: sectionId }, "", hash);
+        }
+
+        window.scrollTo({ top: 0, behavior: "auto" });
+
+        if (sectionId && selected === "home") {
+          requestAnimationFrame(() => {
+            document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+          });
+        }
+      }
+
+      viewLinks.forEach(link => {
+        link.addEventListener("click", event => {
+          event.preventDefault();
+          showView(link.dataset.view);
+        });
+      });
+
+      homeSectionLinks.forEach(link => {
+        link.addEventListener("click", event => {
+          event.preventDefault();
+          showView("home", link.dataset.homeSection);
+        });
+      });
+
+      window.addEventListener("popstate", event => {
+        const stateView = event.state?.view;
+        const hash = window.location.hash.slice(1);
+        const view = stateView || (hash === "research" || hash === "contact" ? hash : "home");
+        const section = event.state?.section ||
+          (view === "home" && hash && hash !== "home" ? hash : null);
+        showView(view, section, false);
+      });
+
+      // Support direct links such as website/#research and website/#contact.
+      const initialHash = window.location.hash.slice(1);
+      if (initialHash === "research" || initialHash === "contact") {
+        showView(initialHash, null, false);
+      } else if (initialHash && initialHash !== "home") {
+        showView("home", initialHash, false);
+      } else {
+        showView("home", null, false);
+      }
+    })();
+  </script>
+
 </body>
 </html>
