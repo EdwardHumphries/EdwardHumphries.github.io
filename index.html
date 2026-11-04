@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +49,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(255,255,255,0.96);
+            background: rgba(255,255,255,0.97);
             border-bottom: 1px solid var(--border);
         }
 
@@ -69,7 +70,8 @@
 
         .nav-links {
             display: flex;
-            gap: 27px;
+            gap: 22px;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
@@ -123,6 +125,7 @@
         }
 
         .hero-photo {
+            display: block;
             width: 100%;
             max-width: 360px;
             height: 430px;
@@ -155,6 +158,10 @@
         .btn-outline {
             border: 1px solid var(--blue);
             color: var(--blue);
+        }
+
+        .btn:hover {
+            opacity: 0.85;
         }
 
         /* GENERAL SECTIONS */
@@ -206,10 +213,15 @@
             box-shadow: 0 12px 25px rgba(23,43,77,0.09);
         }
 
+        /* PPPL PHOTO: PRESERVE FULL IMAGE */
+
         .project-image {
+            display: block;
             width: 100%;
-            height: 240px;
-            object-fit: cover;
+            height: auto;
+            max-height: 420px;
+            object-fit: contain;
+            background: #f1f5f9;
         }
 
         .project-info {
@@ -283,18 +295,66 @@
             font-size: 19px;
         }
 
+        /* GRADUATION PHOTO: PRESERVE ORIGINAL PROPORTIONS */
+
         .graduation-photo {
+            display: block;
             width: 100%;
-            max-height: 430px;
-            object-fit: cover;
-            object-position: center 30%;
+            height: auto;
+            max-height: 520px;
+            object-fit: contain;
+            object-position: center top;
             border-radius: 12px;
+        }
+
+        /* TEACHING EXPERIENCE */
+
+        .teaching-section {
+            background: var(--light);
+        }
+
+        .teaching-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .teaching-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .teaching-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(23,43,77,0.09);
+        }
+
+        /* SHOW FULL TEACHING PHOTOGRAPHS */
+
+        .teaching-card img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            background: #f1f5f9;
+        }
+
+        .teaching-info {
+            padding: 25px;
+        }
+
+        .teaching-info h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
         }
 
         /* CONTACT */
 
         .contact-section {
-            background: var(--light);
+            background: white;
         }
 
         .contact-links {
@@ -336,18 +396,13 @@
 
             .hero-photo {
                 max-width: 300px;
-                height: 350px;
+                height: auto;
             }
 
             .project-grid,
-            .skills-grid {
+            .skills-grid,
+            .teaching-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                gap: 12px;
-                flex-wrap: wrap;
-                justify-content: center;
             }
 
             nav {
@@ -355,10 +410,16 @@
                 gap: 12px;
             }
 
+            .nav-links {
+                justify-content: center;
+                gap: 12px;
+            }
+
             section {
                 padding: 60px 0;
             }
         }
+
     </style>
 </head>
 
@@ -373,6 +434,7 @@
             <a href="#research">Research</a>
             <a href="#skills">Skills</a>
             <a href="#education">Education</a>
+            <a href="#teaching">Teaching</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
@@ -427,6 +489,7 @@
         </div>
     </div>
 
+
     <!-- ABOUT -->
 
     <section id="about">
@@ -457,6 +520,7 @@
         </div>
     </section>
 
+
     <!-- RESEARCH -->
 
     <section class="projects-section" id="research">
@@ -470,6 +534,8 @@
             </p>
 
             <div class="project-grid">
+
+                <!-- PPPL -->
 
                 <div class="project-card">
 
@@ -500,6 +566,9 @@
                     </div>
                 </div>
 
+
+                <!-- SUSPENDED ANIMATION -->
+
                 <div class="project-card">
 
                     <div class="project-info">
@@ -522,6 +591,9 @@
                     </div>
                 </div>
 
+
+                <!-- THREE BODY PROBLEM -->
+
                 <div class="project-card">
 
                     <div class="project-info">
@@ -542,6 +614,9 @@
 
                     </div>
                 </div>
+
+
+                <!-- QUANTUM INFORMATION -->
 
                 <div class="project-card">
 
@@ -567,7 +642,8 @@
         </div>
     </section>
 
-    <!-- SKILLS -->
+
+    <!-- TECHNICAL SKILLS -->
 
     <section id="skills">
         <div class="container">
@@ -620,6 +696,7 @@
         </div>
     </section>
 
+
     <!-- EDUCATION -->
 
     <section id="education">
@@ -653,6 +730,71 @@
         </div>
     </section>
 
+
+    <!-- TEACHING EXPERIENCE -->
+
+    <section class="teaching-section" id="teaching">
+        <div class="container">
+
+            <h2 class="section-title">
+                Teaching Experience
+            </h2>
+
+            <p class="section-description">
+                Alongside my research, I have worked as a
+                Graduate Teaching Assistant, helping students
+                understand physics concepts and solve problems
+                through classroom instruction and individual support.
+            </p>
+
+            <div class="teaching-grid">
+
+                <div class="teaching-card">
+
+                    <img
+                        src="images/teaching-small-group.jpg"
+                        alt="Edward Rios assisting students during instruction">
+
+                    <div class="teaching-info">
+
+                        <h3>Graduate Teaching Assistant</h3>
+
+                        <p>
+                            Worked directly with students,
+                            explaining physics concepts,
+                            answering questions, and helping
+                            them develop problem-solving skills.
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <div class="teaching-card">
+
+                    <img
+                        src="images/teaching-classroom.jpg"
+                        alt="Edward Rios teaching students in a classroom">
+
+                    <div class="teaching-info">
+
+                        <h3>Classroom Instruction</h3>
+
+                        <p>
+                            Supported students during
+                            classroom activities and guided
+                            them through scientific concepts
+                            and practical exercises.
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
     <!-- CONTACT -->
 
     <section class="contact-section" id="contact">
@@ -670,11 +812,12 @@
             <div class="contact-links">
 
                 <a href="https://github.com/EdwardHumphries"
-                   target="_blank">
+                   target="_blank"
+                   rel="noopener noreferrer">
                     GitHub
                 </a>
 
-                <!-- Add your LinkedIn and email here -->
+                <!-- Add LinkedIn and email links here -->
 
             </div>
 
@@ -682,6 +825,7 @@
     </section>
 
 </main>
+
 
 <footer>
     © 2026 Edward Rios. All rights reserved.
