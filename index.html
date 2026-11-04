@@ -170,12 +170,22 @@
     .project-cover {
       display: block;
       width: 100%;
-      height: 290px;
-      object-fit: cover;
-      background: #e8eef6;
+      height: auto;
+      aspect-ratio: 3 / 2;
+      object-fit: contain;
+      background: #eef2f7;
     }
-    .poster-cover { object-position: center 38%; }
-    .video-cover { object-fit: contain; background: #101827; }
+    /* Preserve the full PPPL photograph, including the poster and presenter. */
+    .poster-cover {
+      object-fit: contain;
+      object-position: center;
+      background: #eef2f7;
+    }
+    .video-cover {
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background: #101827;
+    }
     .project-info { padding: 25px; }
     .project-tag {
       display: inline-block;
@@ -210,9 +220,12 @@
     .graduation-photo {
       display: block;
       width: 100%;
-      max-height: 540px;
+      max-width: 430px;
+      height: auto;
+      max-height: none;
       object-fit: contain;
-      object-position: center top;
+      object-position: center;
+      justify-self: end;
       border-radius: 12px;
       background: var(--light);
     }
@@ -221,7 +234,15 @@
     .teaching-section { background: var(--light); }
     .teaching-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
     .teaching-card { overflow: hidden; background: white; border: 1px solid var(--border); border-radius: 12px; }
-    .teaching-card img { display: block; width: 100%; height: 310px; object-fit: cover; object-position: center; background: #e8eef6; }
+    .teaching-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 2;
+      object-fit: contain;
+      object-position: center;
+      background: #eef2f7;
+    }
     .teaching-info { padding: 23px; }
     .teaching-info h3 { color: var(--navy); margin-bottom: 8px; }
 
@@ -245,6 +266,7 @@
       .hero-content, .education-content { grid-template-columns: 1fr; gap: 35px; }
       .hero { padding: 65px 0; }
       .hero-photo { margin: 0; max-width: 330px; height: auto; }
+      .graduation-photo { justify-self: center; max-width: 390px; }
       .project-grid, .teaching-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
       .research-hero { padding: 35px 28px; }
@@ -255,8 +277,9 @@
       .container, nav { width: min(100% - 32px, 1150px); }
       section { padding: 60px 0; }
       .skills-grid { grid-template-columns: 1fr; }
-      .project-cover { height: 230px; }
-      .teaching-card img { height: auto; max-height: 340px; object-fit: contain; }
+      .project-cover { height: auto; }
+      .graduation-photo { max-width: 100%; }
+      .teaching-card img { height: auto; }
       .research-hero { min-height: 260px; padding: 30px 23px; }
     }
   </style>
@@ -506,8 +529,9 @@
             <div class="teaching-info">
               <h3>Graduate Teaching Assistant</h3>
               <p>
-                Worked directly with students, answered questions, explained
-                physics concepts, and helped students develop problem-solving skills.
+                Supported undergraduate physics students during problem sessions,
+                helping them break down multi-step questions, check their reasoning,
+                and apply course concepts to new problems.
               </p>
             </div>
           </article>
@@ -517,8 +541,9 @@
             <div class="teaching-info">
               <h3>Classroom Instruction</h3>
               <p>
-                Guided students through classroom activities and supported
-                their understanding of scientific concepts and practical exercises.
+                Assisted with hands-on classroom and laboratory activities,
+                helping students interpret observations, use scientific tools,
+                and connect experimental results with physical principles.
               </p>
             </div>
           </article>
