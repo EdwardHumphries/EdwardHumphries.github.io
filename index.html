@@ -3,60 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Edward Rios — physicist and computational scientist. Research in plasma physics, active matter, computational modeling, and scientific computing.">
-  <meta name="theme-color" content="#ffffff">
-  <title>Edward Rios | Physicist & Computational Scientist</title>
-  <style>
-    :root {
-      --blue: #2563eb;
-      --blue-dark: #173b78;
-      --navy: #172b4d;
-      --text: #475569;
-      --muted: #64748b;
-      --light: #f5f8fc;
-      --border: #e2e8f0;
-      --white: #ffffff;
-      --shadow: 0 14px 35px rgba(23, 43, 77, 0.09);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      line-height: 1.7;
-      background: var(--white);
-    }
-    img, video { max-width: 100%; }
-
-		3 scroll bar (disabled, settable, float) 0.1851851791143417
-		4 scroll bar (settable, float) 0
-			5 value indicator (settable, float) 0
-			6 increment arrow button
-			7 decrement arrow button
-			8 increment page button
-			9 decrement page button
-	10 close button
-	11 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
-	12 minimize button
-	13 menu button (disabled) document actions
-	14 image edward-site-publish-math.html
-	15 text edward-site-publish-math.html
-16 menu bar
-	17 TextEdit
-	18 File
-	19 Edit
-	20 Format
-	21 View
-	22 Window
-	23 Help
-
-Selected text: ```
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Edward Rios — physicist and computational scientist. Research in plasma physics, active matter, computational modeling, and scientific computing.">
+  <meta name="description" content="Edward Rios â€” physicist and computational scientist. Research in plasma physics, active matter, computational modeling, and scientific computing.">
   <meta name="theme-color" content="#ffffff">
   <title>Edward Rios | Physicist & Computational Scientist</title>
   <style>
@@ -360,11 +307,29 @@ Selected text: ```
       color: var(--navy);
       font-family: Georgia, "Times New Roman", serif;
       font-size: clamp(18px, 1.45vw, 21px);
-      line-height: 1.7;
-      white-space: nowrap;
+      line-height: 1.5;
     }
     .model-equation.compact { font-size: clamp(16px, 1.25vw, 19px); }
-    .model-equation.multiline { white-space: normal; overflow-wrap: anywhere; }
+    .model-equation math { display: block; min-width: max-content; }
+    .model-equation mjx-container[display="true"] {
+      max-width: 100%;
+      margin: 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .model-equation mjx-container { color: inherit; }
+    .model-equation .equation-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--blue);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.4;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .model-equation.continuity { padding: 18px 20px; background: #f1f6ff; border-color: #cbdcfb; }
     .equation-caption {
       max-width: 850px;
       margin: 0 0 18px;
@@ -491,6 +456,14 @@ Selected text: ```
       .research-hero { min-height: 260px; padding: 30px 23px; }
     }
   </style>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [["\\(", "\\)"]] },
+      chtml: { scale: 1.05 },
+      options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
   <header>
@@ -589,7 +562,7 @@ Selected text: ```
               Your browser does not support embedded video.
             </video>
             <div class="project-info">
-              <span class="project-tag">Active Matter · 2026</span>
+              <span class="project-tag">Active Matter Â· 2026</span>
               <h3>Suspended Animation: Survival of Active Patterns Without Energy</h3>
               <p>
                 This project investigates whether active biological patterns
@@ -603,17 +576,17 @@ Selected text: ```
                 Python, NumPy, Numba, numerical PDE solvers, active matter
                 models, phase diagrams, and computational physics.
               </p>
-              <a class="project-open-link" href="#project-suspended-animation" data-project-open="suspended-animation">View project <span aria-hidden="true">→</span></a>
+              <a class="project-open-link" href="#project-suspended-animation" data-project-open="suspended-animation">View project <span aria-hidden="true">â†’</span></a>
             </div>
           </article>
           <!-- PPPL research -->
           <article class="project-card">
             <img class="project-cover poster-cover"
                  src="images/pppl-research-poster.jpg"
-                 alt="Edward presenting his Boron–Deuterium research poster at PPPL">
+                 alt="Edward presenting his Boronâ€“Deuterium research poster at PPPL">
             <div class="project-info">
-              <span class="project-tag">Plasma Physics · Summer 2025</span>
-              <h3>Boron–Deuterium Diffusion</h3>
+              <span class="project-tag">Plasma Physics Â· Summer 2025</span>
+              <h3>Boronâ€“Deuterium Diffusion</h3>
               <p>
                 At Princeton Plasma Physics Laboratory (PPPL), I studied
                 deuterium diffusion in alpha-rhombohedral boron using molecular
@@ -625,7 +598,7 @@ Selected text: ```
                 LAMMPS, molecular dynamics, interatomic potentials,
                 Python, computational analysis.
               </p>
-              <a class="project-open-link" href="#project-boron-deuterium" data-project-open="boron-deuterium">View project <span aria-hidden="true">→</span></a>
+              <a class="project-open-link" href="#project-boron-deuterium" data-project-open="boron-deuterium">View project <span aria-hidden="true">â†’</span></a>
             </div>
           </article>
           <!-- Three body problem -->
@@ -643,7 +616,7 @@ Selected text: ```
               </p>
               <h4>Methods and tools</h4>
               <p class="project-tools">Python, SciPy, DOP853, numerical integration, data visualization.</p>
-              <a class="project-open-link" href="#project-three-body" data-project-open="three-body">View project <span aria-hidden="true">→</span></a>
+              <a class="project-open-link" href="#project-three-body" data-project-open="three-body">View project <span aria-hidden="true">â†’</span></a>
             </div>
           </article>
           <!-- Quantum information -->
@@ -661,16 +634,16 @@ Selected text: ```
               </p>
               <h4>Methods and tools</h4>
               <p class="project-tools">Quantum circuit simulation, Python, numerical analysis.</p>
-              <a class="project-open-link" href="#project-quantum-information" data-project-open="quantum-information">View project <span aria-hidden="true">→</span></a>
+              <a class="project-open-link" href="#project-quantum-information" data-project-open="quantum-information">View project <span aria-hidden="true">â†’</span></a>
             </div>
           </article>
         </div>
         </div>
         <!-- Individual project pages appear here without opening a new browser tab. -->
         <article class="project-detail" id="project-boron-deuterium" data-project-detail="boron-deuterium" hidden>
-          <button class="project-back" type="button" data-project-back>← Back to Research</button>
-          <span class="project-tag">Plasma Physics · Summer 2025</span>
-          <h2 class="section-title">Boron–Deuterium Diffusion</h2>
+          <button class="project-back" type="button" data-project-back>â† Back to Research</button>
+          <span class="project-tag">Plasma Physics Â· Summer 2025</span>
+          <h2 class="section-title">Boronâ€“Deuterium Diffusion</h2>
           <p class="project-detail-lead">
             During my internship at Princeton Plasma Physics Laboratory (PPPL), I used
             molecular dynamics simulations to study how deuterium moves through
@@ -692,8 +665,8 @@ Selected text: ```
           </p>
         </article>
         <article class="project-detail" id="project-suspended-animation" data-project-detail="suspended-animation" hidden>
-          <button class="project-back" type="button" data-project-back>← Back to Research</button>
-          <span class="project-tag">Active Matter · 2026</span>
+          <button class="project-back" type="button" data-project-back>â† Back to Research</button>
+          <span class="project-tag">Active Matter Â· 2026</span>
           <h2 class="section-title">Suspended Animation: Survival of Active Patterns Without Energy</h2>
           <p class="project-detail-lead">
             I built a mathematical model to ask a simple question: when a living system loses its
@@ -715,41 +688,47 @@ Selected text: ```
               using run-and-tumble particles. It does not simulate embryos or PAR proteins directly.
             </p>
             <p>
-              I first track the local particle density, ρ(r,t), where r is position and t is time.
-              The continuity equation says that density changes when particles flow into or out of a
-              region:
+              I track the local particle density Ï(r,t), where r is position and t is time. The
+              simulation follows this density field as it changes over time. Its central rule is
+              the continuity equation: density can change only when
+              particles flow into or out of a region. In other words, this is the conservation law
+              the simulation evolves over time.
             </p>
           </div>
-          <div class="model-equation" role="math" aria-label="Partial rho over partial t equals negative divergence of J">
-            ∂ρ/∂t = −∇·J
+          <div class="model-equation continuity" role="math" aria-label="Continuity equation: partial rho with respect to partial t equals negative divergence of J">
+            <span class="equation-label">Core equation simulated Â· Continuity</span>
+            \[\frac{\partial \rho}{\partial t} = -\nabla \cdot \mathbf{J}\]
           </div>
           <p class="equation-caption">
-            Here J is the particle current: the combined flow caused by random spreading and active
-            motion. This conservation rule is the backbone of the model.
+            The fraction on the left is the rate of change of density. J is the particle current,
+            describing how particles move because of random spreading and self-propulsion. The
+            negative divergence means density falls where particles flow outward and rises where
+            they flow inward. The model equations below specify this current and the other physical
+            processes included in the simulation.
           </p>
           <h3>How crowding can create a pattern</h3>
           <div class="project-detail-copy">
             <p>
-              In the model, a particle’s propulsion speed falls as its surroundings become denser.
+              In the model, a particleâ€™s propulsion speed falls as its surroundings become denser.
               Crowded areas therefore slow down; particles spend longer there, which can make those
               areas even denser. This feedback is called motility-induced phase separation (MIPS):
               particles can form dense and dilute regions without an attractive force between them.
             </p>
           </div>
-          <div class="model-equation" role="math" aria-label="v of rho equals v zero times exponential of negative rho over rho star">
-            v(ρ) = v₀ e<sup>−ρ/ρ<sub>*</sub></sup>
+          <div class="model-equation" role="math" aria-label="v of rho equals v zero times the exponential of negative rho divided by rho star">
+            \[v(\rho) = v_0 e^{-\rho/\rho_*}\]
           </div>
           <p class="equation-caption">
-            v₀ is the speed in a dilute region; ρ<sub>*</sub> sets the crowding scale. As ρ rises,
+            vâ‚€ is the speed in a dilute region; Ï<sub>*</sub> sets the crowding scale. As Ï rises,
             the exponential makes particles move more slowly.
           </p>
-          <div class="model-equation compact" role="math" aria-label="Effective diffusivity equals Gamma xi tau v zero squared over d times exponential of negative two rho over rho star times one minus rho over rho star">
-            D<sub>eff</sub>(ρ) = Γξ(τv₀²/d)e<sup>−2ρ/ρ<sub>*</sub></sup>(1 − ρ/ρ<sub>*</sub>)
+          <div class="model-equation compact" role="math" aria-label="Effective diffusivity equals gamma xi tau v zero squared divided by dimension, times an exponential and one minus rho divided by rho star">
+            \[\mathcal{D}_{\mathrm{eff}}(\rho) = \Gamma\xi\frac{\tau v_0^2}{d}e^{-2\rho/\rho_*}\left(1-\frac{\rho}{\rho_*}\right)\]
           </div>
           <p class="equation-caption">
             This effective diffusivity combines random spreading with the drift created by the
-            density-dependent speed. When ρ &gt; ρ<sub>*</sub>, D<sub>eff</sub> becomes negative: small
-            density variations grow instead of smoothing away. That is the model’s threshold for
+            density-dependent speed. When Ï &gt; Ï<sub>*</sub>, D<sub>eff</sub> becomes negative: small
+            density variations grow instead of smoothing away. That is the modelâ€™s threshold for
             pattern formation.
           </p>
           <h3>What changes as ATP falls</h3>
@@ -760,39 +739,40 @@ Selected text: ```
               faster than growth as the energy supply runs down.
             </p>
           </div>
-          <div class="model-equation compact" role="math" aria-label="Activity xi equals xi zero times ATP squared; growth rate kappa equals kappa zero times ATP; ATP of t equals maximum of one minus t over t q and zero">
-            ξ(t) = ξ₀ A(t)² &nbsp; · &nbsp; κ(t) = κ₀ A(t) &nbsp; · &nbsp; A(t) = max(1 − t/t<sub>q</sub>, 0)
+          <div class="model-equation compact" role="math" aria-label="Activity xi equals xi zero times A squared; growth rate kappa equals kappa zero times A; A of t equals maximum of one minus t divided by t q and zero">
+            \[\begin{aligned}\xi(t) &= \xi_0 A(t)^2, &\quad \kappa(t) &= \kappa_0 A(t),\\ A(t) &= \max\left(1-\frac{t}{t_q},0\right).\end{aligned}\]
           </div>
           <p class="equation-caption">
             A is the normalized ATP level, falling from 1 to 0 over the quench time t<sub>q</sub>.
-            The coefficients ξ₀ and κ₀ set the starting activity and growth rate.
+            The coefficients Î¾â‚€ and Îºâ‚€ set the starting activity and growth rate.
           </p>
-          <div class="model-equation compact" role="math" aria-label="Gamma equals Gamma zero times exponential of negative B over T effective minus T g; T effective equals T plus b times A">
-            Γ = Γ₀ exp[−B/(T<sub>eff</sub> − T<sub>g</sub>)] &nbsp; · &nbsp; T<sub>eff</sub> = T + bA
+          <div class="model-equation compact" role="math" aria-label="Gamma equals Gamma zero times exponential of negative B divided by T effective minus T g; T effective equals T plus bA">
+            \[\begin{aligned}\Gamma &= \Gamma_0\exp\left[-\frac{B}{T_{\mathrm{eff}}-T_g}\right],\\ T_{\mathrm{eff}} &= T+bA.\end{aligned}\]
           </div>
           <p class="equation-caption">
-            Γ is the system’s mobility. This Vogel–Fulcher–Tammann-inspired relation makes mobility
+            Î“ is the systemâ€™s mobility. This Vogelâ€“Fulcherâ€“Tammann-inspired relation makes mobility
             fall sharply as ATP drops and the effective temperature approaches T<sub>g</sub>, capturing
             a glass-like slowdown.
           </p>
           <div class="project-detail-copy">
             <p>
-              My full density equation combines active and thermal spreading, growth with a finite
-              carrying capacity, noise, and a small-scale smoothing term:
+              The full density equation expands the continuity law by specifying the physical
+              processes that change the density: effective spreading from active motion, thermal
+              diffusion, growth with a carrying capacity, and smoothing at small scales:
             </p>
           </div>
-          <div class="model-equation compact multiline" role="math" aria-label="Partial rho over partial t equals divergence of the sum of thermal and effective diffusivity times gradient rho plus square root of k B T times eta, plus kappa rho times one minus rho over rho max, minus K four laplacian squared rho">
-            ∂ρ/∂t = ∇·[(D<sub>T</sub> + D<sub>eff</sub>)∇ρ + √(k<sub>B</sub>T)η]<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ κρ(1 − ρ/ρ<sub>max</sub>) − K₄∇⁴ρ
+          <div class="model-equation compact" role="math" aria-label="Full density equation: partial rho over partial t equals divergence of effective diffusion, plus thermal diffusion, logistic growth, minus fourth order smoothing">
+            <span class="equation-label">Full density equation Â· Expanded form of the continuity law</span>
+            \[\begin{aligned}\frac{\partial \rho}{\partial t} ={}& \nabla\!\cdot\!\left[\mathcal{D}_{\mathrm{eff}}(\rho)\nabla\rho\right] + D_{\mathrm{thermal}}\nabla^2\rho\\ &+ \kappa\rho\left(1-\frac{\rho}{\rho_0}\right) - k_4\nabla^4\rho.\end{aligned}\]
           </div>
           <div class="project-detail-copy">
             <p>
-              D<sub>T</sub> = Γk<sub>B</sub>T describes thermal spreading. The logistic term
-              κρ(1 − ρ/ρ<sub>max</sub>) represents growth that slows as the system approaches its
-              carrying capacity. η is a fluctuating noise field. The fourth-order term, with strength
-              K₄, smooths unrealistically sharp boundaries between dense and dilute regions. I also
-              used a Vogel–Fulcher–Tammann-inspired mobility, so the system becomes increasingly
-              sluggish as activity drops, representing glass-like arrest.
+              D<sub>thermal</sub> sets the strength of thermal diffusion. The logistic term
+              ÎºÏ(1 âˆ’ Ï/Ï<sub>0</sub>) represents growth that slows as the density approaches its
+              carrying capacity. The fourth-order term, k<sub>4</sub>âˆ‡<sup>4</sup>Ï, smooths
+              small-scale variations and keeps sharp density boundaries from becoming unstable. The
+              mobility also follows a Vogelâ€“Fulcherâ€“Tammann-inspired relation, so it falls sharply
+              as activity drops and the model approaches glass-like arrest.
             </p>
             <p>
               I used simulations to follow the resulting density patterns through the quench: do they
@@ -802,9 +782,9 @@ Selected text: ```
             </p>
           </div>
           <p class="model-note">
-            <strong>Notation:</strong> The project notes use ρ₀ for both the crowding scale and the
+            <strong>Notation:</strong> The project notes use Ïâ‚€ for both the crowding scale and the
             growth carrying capacity. To make their separate roles easier to follow here, I write
-            them as ρ<sub>*</sub> and ρ<sub>max</sub>.
+            them as Ï<sub>*</sub> and Ï<sub>max</sub>.
           </p>
           <h3>Why this paper inspired the project</h3>
           <div class="project-detail-copy">
@@ -817,7 +797,7 @@ Selected text: ```
             <p class="project-reference">
               <strong>Main reference:</strong> J. Borrego-Pinto, J. Cornwall Scoones, N. Hirani,
               K. Ng, B. Baum, S. Banerjee, and N. W. Goehring (2026),
-              <a href="https://doi.org/10.64898/2026.06.30.733387" target="_blank" rel="noopener noreferrer">“Solid-like PAR protein assemblies encode long-term spatial memory of cell polarity during suspended animation.”</a>
+              <a href="https://doi.org/10.64898/2026.06.30.733387" target="_blank" rel="noopener noreferrer">â€œSolid-like PAR protein assemblies encode long-term spatial memory of cell polarity during suspended animation.â€</a>
               (bioRxiv preprint).
             </p>
           </div>
@@ -828,8 +808,8 @@ Selected text: ```
           </p>
         </article>
         <article class="project-detail" id="project-three-body" data-project-detail="three-body" hidden>
-          <button class="project-back" type="button" data-project-back>← Back to Research</button>
-          <span class="project-tag">Computational Physics · Fall 2023</span>
+          <button class="project-back" type="button" data-project-back>â† Back to Research</button>
+          <span class="project-tag">Computational Physics Â· Fall 2023</span>
           <h2 class="section-title">Three-Body Problem</h2>
           <p class="project-detail-lead">
             This project explores the gravitational motion of three interacting
@@ -854,7 +834,7 @@ Selected text: ```
           </p>
         </article>
         <article class="project-detail" id="project-quantum-information" data-project-detail="quantum-information" hidden>
-          <button class="project-back" type="button" data-project-back>← Back to Research</button>
+          <button class="project-back" type="button" data-project-back>â† Back to Research</button>
           <span class="project-tag">Quantum Information</span>
           <h2 class="section-title">Quantum Phase Estimation Under Imperfect Gates</h2>
           <p class="project-detail-lead">
@@ -988,7 +968,7 @@ Selected text: ```
     </div>
   </main>
   <footer>
-    © 2026 Edward Rios. All rights reserved.
+    Â© 2026 Edward Rios. All rights reserved.
   </footer>
   <script>
     (() => {
