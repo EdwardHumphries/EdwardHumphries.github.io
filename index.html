@@ -368,6 +368,10 @@
     .project-figure .project-detail-image { margin-bottom: 8px; }
     .project-figure figcaption { color: var(--muted); font-size: 13px; text-align: center; }
     .project-video-detail { width: 100%; display: block; margin-top: 18px; border-radius: 8px; background: #101827; }
+    .simulation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin: 18px 0 26px; }
+    .simulation-card { min-width: 0; }
+    .simulation-card video { width: 100%; display: block; border-radius: 8px; background: #101827; }
+    .simulation-card figcaption { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 1.6; }
     .text-project { min-height: 290px; display: flex; align-items: center; }
     .text-project .project-info { width: 100%; }
     /* Skills */
@@ -442,6 +446,7 @@
       .hero-photo { margin: 0; max-width: 330px; height: auto; }
       .graduation-photo { justify-self: center; max-width: 390px; }
       .project-grid, .teaching-grid { grid-template-columns: 1fr; }
+      .simulation-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
       .research-hero { padding: 35px 28px; }
       .orbit { right: -80px; opacity: .55; }
@@ -556,11 +561,8 @@
         <div class="project-grid">
           <!-- Suspended Animation -->
           <article class="project-card">
-            <video class="project-cover video-cover" autoplay muted loop playsinline preload="metadata"
-                   aria-label="Animated simulation from the Suspended Animation project">
-              <source src="images/suspended-animation.mp4" type="video/mp4">
-              Your browser does not support embedded video.
-            </video>
+            <img class="project-cover" src="images/suspended-animation-poster.jpg"
+                 alt="Still frame from a suspended animation density simulation">
             <div class="project-info">
               <span class="project-tag">Active Matter · 2026</span>
               <h3>Suspended Animation: Survival of Active Patterns Without Energy</h3>
@@ -674,10 +676,6 @@
             studied this idea with a continuum model of self-propelled particles, gradually lowering
             their activity to represent ATP depletion.
           </p>
-          <video class="project-detail-video" controls playsinline preload="metadata">
-            <source src="images/suspended-animation.mp4" type="video/mp4">
-            Your browser does not support embedded video.
-          </video>
           <h3>The thermodynamic paradox of survival</h3>
           <div class="project-detail-copy">
             <p>
@@ -799,135 +797,215 @@
             </figcaption>
             <p class="project-figure-note">AI-generated conceptual illustration; it summarizes the ideas and is not simulation output.</p>
           </figure>
-          <h3>Why MIPS begins: a density fluctuation can grow</h3>
-          <div class="project-detail-copy">
-            <p>
-              The key feedback is that particles move more slowly where they are crowded. They stay
-              there longer, adding to the crowding. If speed falls steeply enough with density, this
-              feedback overcomes the tendency of particles to spread out. The active contribution
-              to diffusion then becomes negative: dense patches draw in particles and grow, while
-              dilute patches lose them. No attractive force is needed.
-            </p>
-            <p>
-              I used a linear stability analysis to locate this onset. Starting from a uniform
-              density, I add a small ripple and ask whether it fades or grows. For the active MIPS
-              part of the model, its growth rate has the opposite sign to the effective diffusivity.
-              Positive diffusivity smooths a ripple; negative diffusivity amplifies it. In the full
-              model, thermal diffusion and the fourth-order term also affect which ripples grow.
-            </p>
-          </div>
-          <div class="model-equation compact" role="math" aria-label="A small density fluctuation grows like an exponential with rate sigma; sigma equals minus the effective diffusivity at the mean density times wave number squared">
-            \[\delta\rho \propto e^{\sigma t+i\mathbf{k}\cdot\mathbf{r}},\qquad
-              \sigma=-\mathcal{D}_{\mathrm{eff}}(\bar\rho)|\mathbf{k}|^2\]
-          </div>
-          <p class="equation-caption">
-            Here k describes the ripple’s size. When \(\mathcal{D}_{\mathrm{eff}}(\bar\rho)&lt;0\),
-            σ is positive and the ripple grows: this is the linear instability that marks the start
-            of MIPS. The dense and dilute phases approach their coexistence, or binodal, densities;
-            in the reproducing-bacteria model, birth and death can arrest domain growth at a
-            characteristic scale.
-          </p>
           <h3>From this picture to the density model</h3>
           <div class="project-detail-copy">
             <p>
-              Rather than simulate each bacterium or a real embryo, I describe the population using
-              its local density ρ(r,t), where r is position and t is time. The model asks whether
-              patterns formed by active motion dissolve, reorganize, or become trapped as ATP is
-              gradually depleted. Its central rule is the continuity equation: density changes only
-              when particles flow into or out of a region.
+              Rather than simulate each bacterium or a real embryo, I describe many particles by
+              their local density ρ(r,t), where r is position and t is time. The model asks whether
+              a pattern formed by active motion dissolves, reorganizes, or becomes trapped as ATP
+              is gradually depleted. Its central rule is the continuity equation: density changes
+              only when particles flow into or out of a region. The starting equations follow the
+              continuum description developed for run-and-tumble particles by Cates and colleagues.
             </p>
           </div>
           <div class="model-equation continuity" role="math" aria-label="Continuity equation: partial rho with respect to partial t equals negative divergence of J">
-            <span class="equation-label">Core equation simulated · Continuity</span>
-            \[\frac{\partial \rho}{\partial t} = -\nabla \cdot \mathbf{J}\]
+            <span class="equation-label">1 · Conservation of particles</span>
+            \[\frac{\partial\rho}{\partial t}=-\nabla\cdot\mathbf{J}\]
           </div>
           <p class="equation-caption">
-            The fraction on the left is the rate of change of density. J is the particle current,
-            describing how particles move because of random spreading and self-propulsion. The
-            negative divergence means density falls where particles flow outward and rises where
-            they flow inward. The model equations below specify this current and the other physical
-            processes included in the simulation.
+            Here, ρ is particle density and J is the total particle current. Density rises when
+            particles flow into a region and falls when they flow out.
           </p>
-          <h3>How crowding can create a pattern</h3>
+          <h3>The starting model: how particles flow</h3>
           <div class="project-detail-copy">
             <p>
-              In the model, a particle’s propulsion speed falls as its surroundings become denser.
-              Crowded areas therefore slow down; particles spend longer there, which can make those
-              areas even denser. This feedback is called motility-induced phase separation (MIPS):
-              particles can form dense and dilute regions without an attractive force between them.
+              The current has two parts: ordinary spreading down a density gradient and an active
+              drift caused by density-dependent motility. For run-and-tumble particles, the
+              diffusivity depends on their speed v(ρ), the typical time τ between reorientations,
+              and the spatial dimension d.
             </p>
           </div>
-          <div class="model-equation" role="math" aria-label="v of rho equals v zero times the exponential of negative rho divided by rho star">
-            \[v(\rho) = v_0 e^{-\rho/\rho_*}\]
+          <div class="model-equation" role="math" aria-label="Particle current equals minus diffusivity times density gradient plus density times active drift">
+            \[\mathbf{J}=-D(\rho)\nabla\rho+\rho\mathbf{V}\]
           </div>
           <p class="equation-caption">
-            v₀ is the speed in a dilute region; ρ<sub>*</sub> sets the crowding scale. As ρ rises,
-            the exponential makes particles move more slowly.
+            The first term is Fickian diffusion: it smooths density differences. The second is
+            active drift, the systematic motion that appears because particle speed changes with
+            crowding.
           </p>
-          <div class="model-equation compact" role="math" aria-label="Effective diffusivity equals gamma xi tau v zero squared divided by dimension, times an exponential and one minus rho divided by rho star">
-            \[\mathcal{D}_{\mathrm{eff}}(\rho) = \Gamma\xi\frac{\tau v_0^2}{d}e^{-2\rho/\rho_*}\left(1-\frac{\rho}{\rho_*}\right)\]
+          <div class="model-equation compact" role="math" aria-label="Diffusivity D of rho equals speed v of rho squared times tau divided by dimension d; propulsion speed equals v zero times exponential negative rho over rho zero; active drift V equals negative one half derivative of D with respect to rho times density gradient">
+            \[D(\rho)=\frac{v(\rho)^2\tau}{d},\qquad
+              v(\rho)=v_0e^{-\rho/\rho_0},\qquad
+              \mathbf{V}=-\frac{1}{2}\frac{dD}{d\rho}\nabla\rho\]
           </div>
           <p class="equation-caption">
-            This effective diffusivity combines random spreading with the drift created by the
-            density-dependent speed. When ρ &gt; ρ<sub>*</sub>, D<sub>eff</sub> becomes negative: small
-            density variations grow instead of smoothing away. That is the model’s threshold for
-            pattern formation.
+            At low density the speed is close to its dilute value v₀. As density increases, the
+            exponential describes slower motion. The active drift follows density gradients and
+            can reinforce or oppose ordinary spreading.
           </p>
-          <h3>What changes as ATP falls</h3>
+          <div class="model-equation compact" role="math" aria-label="Factoring the density gradient gives current equals minus effective diffusivity times density gradient; effective diffusivity equals D plus rho over two times derivative of D with respect to rho">
+            \[\mathbf{J}=-\mathcal{D}_{\mathrm{eff}}(\rho)\nabla\rho,\qquad
+              \mathcal{D}_{\mathrm{eff}}(\rho)=D(\rho)+\frac{\rho}{2}\frac{dD}{d\rho}\]
+          </div>
+          <p class="equation-caption">
+            Combining the two current terms gives an effective diffusivity. Its sign tells us
+            whether a density difference is smoothed out or amplified by active motion.
+          </p>
+          <h3>Full density equation: expanded continuity law</h3>
           <div class="project-detail-copy">
             <p>
-              I then added a gradual ATP quench. In the model, activity depends quadratically on the
-              remaining ATP fraction, while growth depends linearly on it. This lets motion fade
-              faster than growth as the energy supply runs down.
+              For the MIPS stage, I extend particle conservation with thermal diffusion, population
+              growth, and a term that smooths very sharp interfaces. This lets the model describe
+              both clustering and the processes that limit or shape it.
             </p>
           </div>
-          <div class="model-equation compact" role="math" aria-label="Activity xi equals xi zero times A squared; growth rate kappa equals kappa zero times A; A of t equals maximum of one minus t divided by t q and zero">
-            \[\begin{aligned}\xi(t) &= \xi_0 A(t)^2, &\quad \kappa(t) &= \kappa_0 A(t),\\ A(t) &= \max\left(1-\frac{t}{t_q},0\right).\end{aligned}\]
+          <div class="model-equation compact" role="math" aria-label="Density equation: time derivative equals divergence of effective diffusion plus thermal diffusion, logistic growth, minus fourth-order interface smoothing">
+            <span class="equation-label">Expanded form of the continuity law</span>
+            \[\frac{\partial\rho}{\partial t}=
+              \nabla\!\cdot\!\left[\mathcal{D}_{\mathrm{eff}}(\rho)\nabla\rho\right]
+              +D_{\mathrm{thermal}}\nabla^2\rho
+              +\kappa\rho\left(1-\frac{\rho}{\rho_0}\right)-k_4\nabla^4\rho\]
           </div>
           <p class="equation-caption">
-            A is the normalized ATP level, falling from 1 to 0 over the quench time t<sub>q</sub>.
-            The coefficients ξ₀ and κ₀ set the starting activity and growth rate.
+            The active term can drive phase separation. Thermal diffusion represents Brownian
+            motion and smooths density differences. Logistic growth increases the population at
+            low density, then slows near the carrying capacity ρ₀. The fourth-order term penalizes
+            very sharp interfaces, much like surface tension in a fluid mixture.
           </p>
-          <div class="model-equation compact" role="math" aria-label="Gamma equals Gamma zero times exponential of negative B divided by T effective minus T g; T effective equals T plus bA">
-            \[\begin{aligned}\Gamma &= \Gamma_0\exp\left[-\frac{B}{T_{\mathrm{eff}}-T_g}\right],\\ T_{\mathrm{eff}} &= T+bA.\end{aligned}\]
+          <h3>Why MIPS begins: a perturbation can grow</h3>
+          <div class="project-detail-copy">
+            <p>
+              I used linear stability analysis to test what happens when a uniform density is given
+              a small perturbation. If the effective diffusivity is positive, the perturbation
+              fades as particles spread. If it is negative, particles move toward higher-density
+              regions and the perturbation grows. This identifies the condition for MIPS in the
+              active part of the model; thermal diffusion and interface smoothing also affect the
+              full model’s behavior.
+            </p>
+          </div>
+          <div class="model-equation compact" role="math" aria-label="A small density perturbation grows exponentially with rate sigma; sigma equals minus effective diffusivity at mean density times wave number squared">
+            \[\delta\rho\propto e^{\sigma t+i\mathbf{k}\cdot\mathbf{r}},\qquad
+              \sigma=-\mathcal{D}_{\mathrm{eff}}(\bar\rho)|\mathbf{k}|^2\]
           </div>
           <p class="equation-caption">
-            Γ is the system’s mobility. This Vogel–Fulcher–Tammann-inspired relation makes mobility
-            fall sharply as ATP drops and the effective temperature approaches T<sub>g</sub>, capturing
-            a glass-like slowdown.
+            Here, ρ̄ is the uniform background density and k sets the perturbation’s spatial scale.
+            For the active contribution, a negative effective diffusivity makes σ positive, so the
+            perturbation grows. The phases approach coexistence, or binodal, densities; birth and
+            death can arrest domain growth at a characteristic scale in the reproducing-bacteria
+            model.
           </p>
+          <h3>How crowding creates a pattern</h3>
           <div class="project-detail-copy">
             <p>
-              The continuity equation tracks density changes through particle flow. To represent
-              the additional processes in this project, I expand it with thermal motion, population
-              growth, and a term that smooths very sharp interfaces:
+              The speed law makes the instability concrete: particles in a crowded region move more
+              slowly and remain there longer. When speed decreases sufficiently fast with density,
+              this feedback can outweigh ordinary spreading. The active effective diffusivity then
+              becomes negative, and MIPS separates the system into dense and dilute regions without
+              requiring attractive forces.
             </p>
           </div>
-          <div class="model-equation compact" role="math" aria-label="Full density equation: partial rho over partial t equals divergence of effective diffusion, plus thermal diffusion, logistic growth, minus fourth order smoothing">
-            <span class="equation-label">Full density equation · Expanded form of the continuity law</span>
-            \[\begin{aligned}\frac{\partial \rho}{\partial t} ={}& \nabla\!\cdot\!\left[\mathcal{D}_{\mathrm{eff}}(\rho)\nabla\rho\right] + D_{\mathrm{thermal}}\nabla^2\rho\\ &+ \kappa\rho\left(1-\frac{\rho}{\rho_0}\right) - k_4\nabla^4\rho.\end{aligned}\]
+          <div class="model-equation" role="math" aria-label="Propulsion speed equals v zero times exponential of negative density divided by rho zero">
+            \[v(\rho)=v_0e^{-\rho/\rho_0}\]
+          </div>
+          <p class="equation-caption">
+            v₀ is the dilute-region speed and ρ₀ sets the density scale over which crowding reduces
+            motility.
+          </p>
+          <div class="model-equation compact" role="math" aria-label="Active effective diffusivity equals Gamma xi tau v zero squared over dimension d times exponential negative twice rho over rho zero times one minus rho over rho zero">
+            \[\mathcal{D}_{\mathrm{eff}}(\rho)=\Gamma\xi\frac{\tau v_0^2}{d}
+              e^{-2\rho/\rho_0}\left(1-\frac{\rho}{\rho_0}\right)\]
+          </div>
+          <p class="equation-caption">
+            This form includes the system mobility Γ and activity ξ. Once the crowding scale is
+            crossed, the active contribution can be negative; the other terms in the continuity
+            equation shape how the pattern develops.
+          </p>
+          <h3>MIPS simulations</h3>
+          <div class="project-detail-copy">
+            <p>
+              These two runs show the density field evolving under the MIPS model before adding the
+              ATP quench. Compare the first run with the later-time view to see how the clusters
+              develop and continue changing.
+            </p>
+          </div>
+          <div class="simulation-grid" aria-label="MIPS simulation videos">
+            <figure class="simulation-card">
+              <video controls playsinline preload="metadata">
+                <source src="images/mips-v0-4-kappa-0-01.mp4" type="video/mp4">
+                Your browser does not support embedded video.
+              </video>
+              <figcaption>Simulation run, 500,000 steps. Parameters: v₀ = 4.0, κ = 0.01.</figcaption>
+            </figure>
+            <figure class="simulation-card">
+              <video controls playsinline preload="metadata">
+                <source src="images/mips-v0-4-kappa-0-01-longtime.mp4" type="video/mp4">
+                Your browser does not support embedded video.
+              </video>
+              <figcaption>Long-time view, 500,000 steps. Parameters: v₀ = 4.0, κ = 0.01.</figcaption>
+            </figure>
+          </div>
+          <h3>Adding ATP dependence</h3>
+          <div class="project-detail-copy">
+            <p>
+              To study suspended animation, I make motility, growth, and mobility depend explicitly
+              on the normalized ATP level A(t), where A = 1 means ATP is available and A = 0 means
+              it has been depleted. Activity scales quadratically with ATP, so it decreases rapidly
+              during the quench; the growth rate scales linearly.
+            </p>
+          </div>
+          <div class="model-equation compact" role="math" aria-label="Activity xi of t equals xi zero times A of t squared; growth rate kappa of t equals kappa zero times A of t; A varies between zero and one">
+            \[\xi(t)=\xi_0A(t)^2,\qquad
+              \kappa(t)=\kappa_0A(t),\qquad 0\leq A(t)\leq1\]
+          </div>
+          <p class="equation-caption">
+            ξ₀ and κ₀ set the values when ATP is available. As A(t) falls, both activity and growth
+            weaken, with activity dropping more quickly.
+          </p>
+          <div class="model-equation compact" role="math" aria-label="Mobility Gamma equals Gamma zero times exponential negative B over effective temperature minus glass transition temperature; effective temperature equals T plus b times A">
+            \[\Gamma(t)=\Gamma_0\exp\!\left[-\frac{B}{T_{\mathrm{eff}}(t)-T_g}\right],\qquad
+              T_{\mathrm{eff}}(t)=T+bA(t)\]
+          </div>
+          <p class="equation-caption">
+            This mobility relation makes rearrangements slow sharply as ATP is depleted and the
+            effective temperature approaches T_g, representing a glass-like slowdown.
+          </p>
+          <div class="model-equation compact" role="math" aria-label="Diffusivity equals Gamma times xi times speed squared times tau over dimension; effective diffusivity equals Gamma xi tau v zero squared over dimension times exponential negative two rho over rho zero times one minus rho over rho zero">
+            \[D(\rho,t)=\Gamma(t)\xi(t)\frac{v(\rho)^2\tau}{d},\qquad
+              \mathcal{D}_{\mathrm{eff}}(\rho,t)=\Gamma(t)\xi(t)\frac{\tau v_0^2}{d}
+              e^{-2\rho/\rho_0}\left(1-\frac{\rho}{\rho_0}\right)\]
+          </div>
+          <p class="equation-caption">
+            Substituting these ATP-dependent coefficients into the continuity law gives the
+            evolution equation used for the quench simulations:
+          </p>
+          <div class="model-equation compact" role="math" aria-label="Complete ATP-dependent continuity equation including thermal diffusion, active diffusivity, logistic growth, and fourth-order smoothing">
+            <span class="equation-label">Complete ATP-dependent density equation</span>
+            \[\begin{aligned}\frac{\partial\rho}{\partial t}={}&
+              \nabla\!\cdot\!\left\{\Gamma(t)\left[k_BT\nabla\rho+
+              \xi(t)\frac{\tau v_0^2}{d}e^{-2\rho/\rho_0}
+              \left(1-\frac{\rho}{\rho_0}\right)\nabla\rho\right]\right\}\\
+              &+\kappa(t)\rho\left(1-\frac{\rho}{\rho_0}\right)-k_4\nabla^4\rho.\end{aligned}\]
           </div>
           <div class="project-detail-copy">
             <p>
-              Each addition has a distinct role. The active term can cluster particles through
-              MIPS. Thermal diffusion represents Brownian kicks that smooth density differences and
-              oppose clustering. The logistic term describes growth when density is low and slows
-              near the carrying capacity ρ<sub>0</sub>, preventing unlimited growth. Finally,
-              −k<sub>4</sub>∇<sup>4</sup>ρ penalizes very sharp boundaries, much like an
-              interfacial-tension effect, and helps keep the patterns smooth. The mobility also
-              falls sharply as ATP drops, allowing the dynamics to approach glass-like arrest.
-            </p>
-            <p>
-              I used simulations to follow the resulting density patterns through the quench: do they
-              dissolve as motion fades, keep their shape, or reorganize? That connects the model to
-              the idea of spatial memory while keeping the question grounded in a tractable physical
-              system.
+              As ATP decreases, motility, diffusion, growth, and mobility are progressively
+              suppressed. The model can therefore move from active pattern formation toward very
+              slow rearrangement, allowing us to examine whether patterns relax or remain trapped.
             </p>
           </div>
+          <figure class="project-figure">
+            <video class="project-detail-video" controls playsinline preload="metadata"
+                   aria-label="Suspended animation density simulation">
+              <source src="images/suspended-animation.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+            </video>
+            <figcaption class="equation-caption">
+              Project simulation shown after introducing the ATP-dependent model terms.
+            </figcaption>
+          </figure>
           <p class="model-note">
-            <strong>Notation:</strong> The project notes use ρ₀ for both the crowding scale and the
-            growth carrying capacity. To make their separate roles easier to follow here, I write
-            them as ρ<sub>*</sub> and ρ<sub>max</sub>.
+            <strong>Notation:</strong> ρ₀ sets the density scale in the crowding law and the
+            carrying capacity in the growth term, following the notation in my project equations.
           </p>
           <h3>Methods and tools</h3>
           <p class="project-tools">
