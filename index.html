@@ -39,8 +39,8 @@
 	11 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
 	12 minimize button
 	13 menu button (disabled) document actions
-	14 image edward-site-publish.html
-	15 text edward-site-publish.html
+	14 image edward-site-publish-math.html
+	15 text edward-site-publish-math.html
 16 menu bar
 	17 TextEdit
 	18 File
@@ -349,6 +349,40 @@ Selected text: ```
       color: #334155;
     }
     .project-detail-copy p + p { margin-top: 1.05em; }
+    .model-equation {
+      max-width: 850px;
+      margin: 12px 0 8px;
+      padding: 15px 18px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #f8fafc;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 1.45vw, 21px);
+      line-height: 1.7;
+      white-space: nowrap;
+    }
+    .model-equation.compact { font-size: clamp(16px, 1.25vw, 19px); }
+    .model-equation.multiline { white-space: normal; overflow-wrap: anywhere; }
+    .equation-caption {
+      max-width: 850px;
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .model-note {
+      max-width: 850px;
+      margin: 16px 0;
+      padding: 14px 16px;
+      border: 1px solid #dbeafe;
+      border-radius: 8px;
+      background: #f8fbff;
+      color: #475569;
+      font-size: 15px;
+      line-height: 1.7;
+    }
     .project-reference { margin-top: 1.2em; }
     .project-reference a { color: var(--blue); text-decoration: underline; }
     .project-detail h3 { color: var(--navy); font-size: 20px; margin: 28px 0 8px; }
@@ -662,44 +696,123 @@ Selected text: ```
           <span class="project-tag">Active Matter · 2026</span>
           <h2 class="section-title">Suspended Animation: Survival of Active Patterns Without Energy</h2>
           <p class="project-detail-lead">
-            I developed a continuum mathematical model for active particles whose motion and growth
-            depend on ATP. Through simulations, I study whether density patterns formed during active
-            motion persist, relax, or reorganize as ATP is gradually depleted to mimic suspended
-            animation.
+            I built a mathematical model to ask a simple question: when a living system loses its
+            energy supply, can a pattern formed by motion remain as a kind of physical memory? I
+            studied this idea with a continuum model of self-propelled particles, gradually lowering
+            their activity to represent ATP depletion.
           </p>
           <video class="project-detail-video" controls playsinline preload="metadata">
             <source src="images/suspended-animation.mp4" type="video/mp4">
             Your browser does not support embedded video.
           </video>
-          <h3>Mathematical model</h3>
+          <h3>What I wanted to model</h3>
           <div class="project-detail-copy">
             <p>
-              I developed a continuum density-field model for run-and-tumble particles. It tracks
-              how local particle density changes through mass conservation, with particle movement
-              shaped by density-dependent diffusion and active drift. The propulsion speed decreases
-              as density rises, v(ρ) = v₀e<sup>−ρ/ρ₀</sup>. Particles therefore slow down in crowded
-              regions and accumulate there. A linear stability analysis predicts that a uniform state
-              can become unstable when the density exceeds a characteristic threshold, leading to
-              motility-induced phase separation.
+              The biological inspiration was the finding that PAR-3 protein assemblies in <em>C. elegans</em>
+              embryos can preserve a polarity pattern during anoxia-induced suspended animation. I
+              wanted to explore the physical idea behind that result: could an organized pattern
+              outlast the active processes that created it? My model isolates one possible mechanism
+              using run-and-tumble particles. It does not simulate embryos or PAR proteins directly.
             </p>
             <p>
-              To study suspended animation, I extended the model with ATP-dependent activity and
-              growth, thermal diffusion, and a higher-order term that smooths sharp density boundaries.
-              I also included an ATP-dependent mobility with a Vogel–Fulcher–Tammann-inspired slowdown.
-              During a gradual ATP quench from full activity to zero, simulations track whether the
-              resulting spatial patterns persist, relax, or reorganize as active motion fades.
+              I first track the local particle density, ρ(r,t), where r is position and t is time.
+              The continuity equation says that density changes when particles flow into or out of a
+              region:
             </p>
           </div>
-          <h3>Biological motivation</h3>
+          <div class="model-equation" role="math" aria-label="Partial rho over partial t equals negative divergence of J">
+            ∂ρ/∂t = −∇·J
+          </div>
+          <p class="equation-caption">
+            Here J is the particle current: the combined flow caused by random spreading and active
+            motion. This conservation rule is the backbone of the model.
+          </p>
+          <h3>How crowding can create a pattern</h3>
           <div class="project-detail-copy">
             <p>
-              This work was inspired by research showing that, during anoxia-induced suspended
-              animation in <em>C. elegans</em> embryos, PAR-3 forms solid-like clusters that preserve
-              the polarity axis during metabolic arrest. These assemblies can then help restore
-              patterning when development resumes. The finding motivated my central question: can a
-              spatial pattern remain as a physical memory when the energy-driven processes that
-              maintain it are reduced or switched off? My continuum model explores this question
-              through active-matter physics; it does not directly simulate PAR-3 or embryos.
+              In the model, a particle’s propulsion speed falls as its surroundings become denser.
+              Crowded areas therefore slow down; particles spend longer there, which can make those
+              areas even denser. This feedback is called motility-induced phase separation (MIPS):
+              particles can form dense and dilute regions without an attractive force between them.
+            </p>
+          </div>
+          <div class="model-equation" role="math" aria-label="v of rho equals v zero times exponential of negative rho over rho star">
+            v(ρ) = v₀ e<sup>−ρ/ρ<sub>*</sub></sup>
+          </div>
+          <p class="equation-caption">
+            v₀ is the speed in a dilute region; ρ<sub>*</sub> sets the crowding scale. As ρ rises,
+            the exponential makes particles move more slowly.
+          </p>
+          <div class="model-equation compact" role="math" aria-label="Effective diffusivity equals Gamma xi tau v zero squared over d times exponential of negative two rho over rho star times one minus rho over rho star">
+            D<sub>eff</sub>(ρ) = Γξ(τv₀²/d)e<sup>−2ρ/ρ<sub>*</sub></sup>(1 − ρ/ρ<sub>*</sub>)
+          </div>
+          <p class="equation-caption">
+            This effective diffusivity combines random spreading with the drift created by the
+            density-dependent speed. When ρ &gt; ρ<sub>*</sub>, D<sub>eff</sub> becomes negative: small
+            density variations grow instead of smoothing away. That is the model’s threshold for
+            pattern formation.
+          </p>
+          <h3>What changes as ATP falls</h3>
+          <div class="project-detail-copy">
+            <p>
+              I then added a gradual ATP quench. In the model, activity depends quadratically on the
+              remaining ATP fraction, while growth depends linearly on it. This lets motion fade
+              faster than growth as the energy supply runs down.
+            </p>
+          </div>
+          <div class="model-equation compact" role="math" aria-label="Activity xi equals xi zero times ATP squared; growth rate kappa equals kappa zero times ATP; ATP of t equals maximum of one minus t over t q and zero">
+            ξ(t) = ξ₀ A(t)² &nbsp; · &nbsp; κ(t) = κ₀ A(t) &nbsp; · &nbsp; A(t) = max(1 − t/t<sub>q</sub>, 0)
+          </div>
+          <p class="equation-caption">
+            A is the normalized ATP level, falling from 1 to 0 over the quench time t<sub>q</sub>.
+            The coefficients ξ₀ and κ₀ set the starting activity and growth rate.
+          </p>
+          <div class="model-equation compact" role="math" aria-label="Gamma equals Gamma zero times exponential of negative B over T effective minus T g; T effective equals T plus b times A">
+            Γ = Γ₀ exp[−B/(T<sub>eff</sub> − T<sub>g</sub>)] &nbsp; · &nbsp; T<sub>eff</sub> = T + bA
+          </div>
+          <p class="equation-caption">
+            Γ is the system’s mobility. This Vogel–Fulcher–Tammann-inspired relation makes mobility
+            fall sharply as ATP drops and the effective temperature approaches T<sub>g</sub>, capturing
+            a glass-like slowdown.
+          </p>
+          <div class="project-detail-copy">
+            <p>
+              My full density equation combines active and thermal spreading, growth with a finite
+              carrying capacity, noise, and a small-scale smoothing term:
+            </p>
+          </div>
+          <div class="model-equation compact multiline" role="math" aria-label="Partial rho over partial t equals divergence of the sum of thermal and effective diffusivity times gradient rho plus square root of k B T times eta, plus kappa rho times one minus rho over rho max, minus K four laplacian squared rho">
+            ∂ρ/∂t = ∇·[(D<sub>T</sub> + D<sub>eff</sub>)∇ρ + √(k<sub>B</sub>T)η]<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ κρ(1 − ρ/ρ<sub>max</sub>) − K₄∇⁴ρ
+          </div>
+          <div class="project-detail-copy">
+            <p>
+              D<sub>T</sub> = Γk<sub>B</sub>T describes thermal spreading. The logistic term
+              κρ(1 − ρ/ρ<sub>max</sub>) represents growth that slows as the system approaches its
+              carrying capacity. η is a fluctuating noise field. The fourth-order term, with strength
+              K₄, smooths unrealistically sharp boundaries between dense and dilute regions. I also
+              used a Vogel–Fulcher–Tammann-inspired mobility, so the system becomes increasingly
+              sluggish as activity drops, representing glass-like arrest.
+            </p>
+            <p>
+              I used simulations to follow the resulting density patterns through the quench: do they
+              dissolve as motion fades, keep their shape, or reorganize? That connects the model to
+              the idea of spatial memory while keeping the question grounded in a tractable physical
+              system.
+            </p>
+          </div>
+          <p class="model-note">
+            <strong>Notation:</strong> The project notes use ρ₀ for both the crowding scale and the
+            growth carrying capacity. To make their separate roles easier to follow here, I write
+            them as ρ<sub>*</sub> and ρ<sub>max</sub>.
+          </p>
+          <h3>Why this paper inspired the project</h3>
+          <div class="project-detail-copy">
+            <p>
+              The paper reports that, during anoxia-induced suspended animation in <em>C. elegans</em>
+              embryos, solid-like PAR protein assemblies preserve long-term spatial memory of cell
+              polarity. I used that result as motivation for asking whether a pattern in a simpler
+              active-matter model can persist after its energy source is removed.
             </p>
             <p class="project-reference">
               <strong>Main reference:</strong> J. Borrego-Pinto, J. Cornwall Scoones, N. Hirani,
