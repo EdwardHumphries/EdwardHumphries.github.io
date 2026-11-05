@@ -289,6 +289,15 @@
     .project-back:hover { background: #edf4ff; }
     .project-detail .section-title { margin: 8px 0 16px; }
     .project-detail-lead { font-size: 18px; max-width: 820px; margin-bottom: 28px; }
+    .project-detail-copy {
+      max-width: 850px;
+      font-size: clamp(18px, 1.4vw, 20px);
+      line-height: 1.8;
+      color: #334155;
+    }
+    .project-detail-copy p + p { margin-top: 1.05em; }
+    .project-reference { margin-top: 1.2em; }
+    .project-reference a { color: var(--blue); text-decoration: underline; }
     .project-detail h3 { color: var(--navy); font-size: 20px; margin: 28px 0 8px; }
     .project-detail-image, .project-detail-video {
       display: block;
@@ -529,10 +538,6 @@
                 Python, NumPy, Numba, numerical PDE solvers, active matter
                 models, phase diagrams, and computational physics.
               </p>
-              <video class="project-video-detail" controls playsinline preload="metadata">
-                <source src="images/suspended-animation.mp4" type="video/mp4">
-                Your browser does not support embedded video.
-              </video>
               <a class="project-open-link" href="#project-suspended-animation" data-project-open="suspended-animation">View project <span aria-hidden="true">→</span></a>
             </div>
           </article>
@@ -573,6 +578,7 @@
             </div>
           </article>
         </div>
+        </div>
         <!-- Individual project pages appear here without opening a new browser tab. -->
         <article class="project-detail" id="project-boron-deuterium" data-project-detail="boron-deuterium" hidden>
           <button class="project-back" type="button" data-project-back>← Back to Research</button>
@@ -603,26 +609,56 @@
           <span class="project-tag">Active Matter · 2026</span>
           <h2 class="section-title">Suspended Animation: Survival of Active Patterns Without Energy</h2>
           <p class="project-detail-lead">
-            This project asks whether spatial patterns formed by active matter can
-            persist after the energy source that supports motion is reduced or removed.
-            The model explores how ATP-dependent activity changes pattern formation,
-            relaxation, and long-term stability.
+            I developed a continuum mathematical model for active particles whose motion and growth
+            depend on ATP. Through simulations, I study whether density patterns formed during active
+            motion persist, relax, or reorganize as ATP is gradually depleted to mimic suspended
+            animation.
           </p>
           <video class="project-detail-video" controls playsinline preload="metadata">
             <source src="images/suspended-animation.mp4" type="video/mp4">
             Your browser does not support embedded video.
           </video>
-          <h3>Research overview</h3>
-          <p>
-            I developed numerical simulations of an active-matter model with an
-            energy-dependent activity term. The system is first allowed to form
-            patterns under active conditions, then the ATP level is reduced to study
-            how the patterns respond as the system becomes less active.
-          </p>
+          <h3>Mathematical model</h3>
+          <div class="project-detail-copy">
+            <p>
+              I developed a continuum density-field model for run-and-tumble particles. It tracks
+              how local particle density changes through mass conservation, with particle movement
+              shaped by density-dependent diffusion and active drift. The propulsion speed decreases
+              as density rises, v(ρ) = v₀e<sup>−ρ/ρ₀</sup>. Particles therefore slow down in crowded
+              regions and accumulate there. A linear stability analysis predicts that a uniform state
+              can become unstable when the density exceeds a characteristic threshold, leading to
+              motility-induced phase separation.
+            </p>
+            <p>
+              To study suspended animation, I extended the model with ATP-dependent activity and
+              growth, thermal diffusion, and a higher-order term that smooths sharp density boundaries.
+              I also included an ATP-dependent mobility with a Vogel–Fulcher–Tammann-inspired slowdown.
+              During a gradual ATP quench from full activity to zero, simulations track whether the
+              resulting spatial patterns persist, relax, or reorganize as active motion fades.
+            </p>
+          </div>
+          <h3>Biological motivation</h3>
+          <div class="project-detail-copy">
+            <p>
+              This work was inspired by research showing that, during anoxia-induced suspended
+              animation in <em>C. elegans</em> embryos, PAR-3 forms solid-like clusters that preserve
+              the polarity axis during metabolic arrest. These assemblies can then help restore
+              patterning when development resumes. The finding motivated my central question: can a
+              spatial pattern remain as a physical memory when the energy-driven processes that
+              maintain it are reduced or switched off? My continuum model explores this question
+              through active-matter physics; it does not directly simulate PAR-3 or embryos.
+            </p>
+            <p class="project-reference">
+              <strong>Main reference:</strong> J. Borrego-Pinto, J. Cornwall Scoones, N. Hirani,
+              K. Ng, B. Baum, S. Banerjee, and N. W. Goehring (2026),
+              <a href="https://doi.org/10.64898/2026.06.30.733387" target="_blank" rel="noopener noreferrer">“Solid-like PAR protein assemblies encode long-term spatial memory of cell polarity during suspended animation.”</a>
+              (bioRxiv preprint).
+            </p>
+          </div>
           <h3>Methods and tools</h3>
           <p class="project-tools">
             Python, NumPy, Numba, finite-difference methods, numerical PDE solvers,
-            active matter, phase diagrams, and glass-like dynamics.
+            active matter, ATP quenching, phase diagrams, and glass-like dynamics.
           </p>
         </article>
         <article class="project-detail" id="project-three-body" data-project-detail="three-body" hidden>
@@ -807,7 +843,8 @@
           panel => panel.dataset.projectDetail === projectName
         );
         if (!selectedProject) {
-          showView("research");
+          showView("research", null, false);
+          showResearchIndex(updateHistory);
           return;
         }
         showView("research", null, false);
@@ -870,7 +907,13 @@
       viewLinks.forEach(link => {
         link.addEventListener("click", event => {
           event.preventDefault();
-          showView(link.dataset.view);
+          const view = link.dataset.view;
+          if (view === "research") {
+            showView("research", null, false);
+            showResearchIndex();
+          } else {
+            showView(view);
+          }
         });
       });
       homeSectionLinks.forEach(link => {
@@ -898,8 +941,11 @@
       const initialHash = window.location.hash.slice(1);
       if (initialHash.startsWith("project-")) {
         showProject(initialHash.slice(8), false);
-      } else if (initialHash === "research" || initialHash === "contact") {
-        showView(initialHash, null, false);
+      } else if (initialHash === "research") {
+        showView("research", null, false);
+        showResearchIndex(false);
+      } else if (initialHash === "contact") {
+        showView("contact", null, false);
       } else if (initialHash && initialHash !== "home") {
         showView("home", initialHash, false);
       } else {
