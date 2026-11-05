@@ -340,6 +340,15 @@
     }
     /* Teaching */
     .teaching-section { background: var(--light); }
+    .teaching-copy {
+      max-width: 790px;
+      margin-bottom: 34px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 1.5vw, 20px);
+      line-height: 1.8;
+      color: #334155;
+    }
+    .teaching-copy p + p { margin-top: 1em; }
     .teaching-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
     .teaching-card { overflow: hidden; background: white; border: 1px solid var(--border); border-radius: 12px; }
     .teaching-card img {
@@ -672,7 +681,6 @@
       </div>
     </section>
     </div>
-    <!-- Skills -->
     <div class="page-view" id="home-details-view" hidden>
     <section id="skills">
       <div class="container">
@@ -705,7 +713,6 @@
         </div>
       </div>
     </section>
-    <!-- Education -->
     <section id="education">
       <div class="container education-content">
         <div>
@@ -723,17 +730,31 @@
              alt="Edward Rios in graduation attire">
       </div>
     </section>
-    <!-- Teaching -->
     <section class="teaching-section" id="teaching">
       <div class="container">
         <h2 class="section-title">Teaching Experience</h2>
-        <p class="section-description">
-          As a Graduate Teaching Assistant for PHYS 2211, I was responsible for
-          two lab sections with 30 students per section. I guided students through
-          laboratory activities, answered questions, and helped them connect
-          experimental observations with physics concepts. I also proctored and
-          graded more than 400 exams per semester.
-        </p>
+        <div class="teaching-copy">
+          <p>
+            As part of my graduate studies, I worked as a Graduate Teaching Assistant for PHYS 2211
+            (Principles of Physics I), where I was responsible for two laboratory sections of 30
+            students each. The course covered fundamental topics in classical mechanics, including
+            forces, momentum, energy conservation, collisions, center of mass, angular momentum, and
+            torque. I guided students through hands-on experiments involving constant velocity,
+            projectile motion, and spring forces. Students used these experiments to observe physical
+            phenomena, build computational models using GlowScript (a Python-based environment), and
+            compare their models with experimental results. They also collected and analyzed data using
+            Tracker, a video analysis tool, to evaluate their findings, compare them with theoretical
+            predictions, and explain the results of each experiment.
+          </p>
+          <p>
+            Throughout the laboratory sessions, I helped students understand the physics behind each
+            experiment, apply mathematical concepts, interpret data, and communicate their findings.
+            My responsibilities also included proctoring and grading more than 400 exams per semester.
+            Beyond my teaching duties, I supported students interested in pursuing scientific research
+            by writing letters of recommendation for those who contacted me for guidance and support
+            as they explored research opportunities.
+          </p>
+        </div>
         <div class="teaching-grid">
           <article class="teaching-card">
             <img src="images/teaching-small-group.jpg"
@@ -747,7 +768,6 @@
       </div>
     </section>
     </div>
-    <!-- Contact opens as its own view in the same browser tab -->
     <div class="page-view" id="contact-view" hidden>
     <section id="contact">
       <div class="container">
@@ -759,7 +779,7 @@
         </p>
         <div class="contact-links">
           <a href="https://github.com/EdwardHumphries" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <!-- Add your LinkedIn URL and professional email when ready. -->
+          <a href="https://www.linkedin.com/in/edward-rios-87a38b36a/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="mailto:edwardh0721@gmail.com">edwardh0721@gmail.com</a>
         </div>
       </div>
     </section>
