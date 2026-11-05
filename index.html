@@ -678,21 +678,132 @@
             <source src="images/suspended-animation.mp4" type="video/mp4">
             Your browser does not support embedded video.
           </video>
-          <h3>What I wanted to model</h3>
+          <h3>The thermodynamic paradox of survival</h3>
           <div class="project-detail-copy">
             <p>
-              The biological inspiration was the finding that PAR-3 protein assemblies in <em>C. elegans</em>
-              embryos can preserve a polarity pattern during anoxia-induced suspended animation. I
-              wanted to explore the physical idea behind that result: could an organized pattern
-              outlast the active processes that created it? My model isolates one possible mechanism
-              using run-and-tumble particles. It does not simulate embryos or PAR proteins directly.
+              Many organized structures inside cells are maintained by ongoing energy use. In
+              physics, patterns sustained by a steady energy supply are called <em>dissipative
+              structures</em>. A flame is a familiar example: it persists only while fuel and oxygen
+              are supplied. This gives a natural expectation for ATP-dependent organization: if the
+              energy source is removed, the processes maintaining a pattern stop, and the system
+              should gradually relax toward a more uniform, disordered state.
             </p>
             <p>
-              I track the local particle density ρ(r,t), where r is position and t is time. The
-              simulation follows this density field as it changes over time. Its central rule is
-              the continuity equation: density can change only when
-              particles flow into or out of a region. In other words, this is the conservation law
-              the simulation evolves over time.
+              The question is whether that relaxation must be fast. If the microscopic rearrangements
+              needed to erase a pattern become extremely slow, organization may persist long after
+              the energy that formed it is gone. That tension between thermodynamic expectation and
+              long-lived structure is the starting point for this project.
+            </p>
+          </div>
+          <figure class="project-figure">
+            <img class="project-detail-image contain-image" src="images/thermodynamic-relaxation.png"
+                 alt="Conceptual sequence of an ATP-supported organized pattern becoming disordered and uniform after ATP is removed">
+            <figcaption>
+              The diagram illustrates the conventional expectation: ATP sustains an organized
+              pattern; after ATP is removed, the pattern decays and the system trends toward a
+              homogeneous, high-entropy state.
+            </figcaption>
+            <p class="project-figure-note">AI-generated conceptual illustration; it is not experimental data or simulation output.</p>
+          </figure>
+          <h3>Biological inspiration: PAR-3 and suspended animation</h3>
+          <div class="project-detail-copy">
+            <p>
+              The biological question is motivated by work on cell polarity in developing
+              <em>C. elegans</em> embryos. PAR proteins help establish the cell’s anterior–posterior
+              organization. Under normal conditions, maintaining this polarity depends on active,
+              energy-consuming cellular processes. When oxygen is removed, the embryo enters an
+              anoxic suspended-animation state and metabolism falls dramatically. The usual
+              expectation would be that polarity fades as energy-dependent maintenance stops.
+            </p>
+            <p>
+              The study asks whether cells can preserve this spatial information through metabolic
+              arrest and use it again when conditions improve. It reports that solid-like PAR
+              assemblies, including PAR-3, preserve long-term polarity memory during suspended
+              animation. This is the main biological reference for my project. My model explores a
+              simplified physical idea motivated by the finding; it does not simulate embryos or PAR
+              proteins directly.
+            </p>
+            <p class="project-reference">
+              <strong>Main biological reference:</strong> J. Borrego-Pinto, J. Cornwall Scoones,
+              N. Hirani, K. Ng, B. Baum, S. Banerjee, and N. W. Goehring (2026),
+              <a href="https://doi.org/10.64898/2026.06.30.733387" target="_blank" rel="noopener noreferrer">“Solid-like PAR protein assemblies encode long-term spatial memory of cell polarity during suspended animation.”</a>
+              (bioRxiv preprint).
+            </p>
+          </div>
+          <h3>My approach: a pattern can become kinetically trapped</h3>
+          <div class="project-detail-copy">
+            <p>
+              ATP may do more than power individual reactions: energy-dependent activity also helps
+              keep the cell interior fluid and able to rearrange. As ATP falls, molecular motion and
+              mobility can decrease. The material may shift from a fluid-like state toward a
+              glass-like or jammed one. It can remain disordered, unlike a crystal, while its
+              components become constrained by their neighbors and large-scale rearrangements slow.
+            </p>
+            <p>
+              This creates a <em>kinetic trap</em>. A uniform state may still be favored in the long
+              run, but the system may not reach it on the timescale we observe because relaxation is
+              extremely slow. Patterns formed while the system was active could therefore persist as
+              a physical memory of that earlier state. This is the hypothesis I investigate with the
+              model, rather than a claim that this mechanism has been proven in the embryo.
+            </p>
+          </div>
+          <h3>From one moving bacterium to collective behavior</h3>
+          <div class="project-detail-copy">
+            <p>
+              To make the physics concrete, I use bacteria such as <em>E. coli</em> as a prototype for
+              an active particle. Unlike a passive particle that moves only when pushed, a bacterium
+              consumes energy and propels itself. Its motion is often described as
+              <em>run-and-tumble</em>: it travels approximately straight during a run at speed
+              <em>v</em>, then tumbles and randomly changes direction. The average frequency of these
+              reorientations is the tumbling rate α.
+            </p>
+          </div>
+          <figure class="project-figure particle-position">
+            <img class="project-detail-image" src="images/particle-initial-position.png"
+                 alt="Coordinate plot showing a particle initialized at the origin">
+            <figcaption>This figure marks an initial particle position at (0, 0); it is a starting snapshot, not a trajectory.</figcaption>
+            <p class="project-figure-note">AI-generated figure.</p>
+          </figure>
+          <div class="project-detail-copy">
+            <p>
+              With many particles, collisions make motion depend on local density. In dilute regions,
+              particles move close to their intrinsic speed. In crowded regions, they obstruct one
+              another and slow down. Slower particles remain in dense areas longer, increasing the
+              crowding and causing further slowing. This reinforcing feedback can separate the
+              system into dense and dilute regions without attractive forces. The phenomenon is
+              called <em>motility-induced phase separation (MIPS)</em>.
+            </p>
+            <p>
+              My initial model was inspired by Cates and colleagues’ theory of reproducing bacteria.
+              Their work describes how density-dependent motility can drive phase separation, while
+              birth-and-death dynamics limit the growth of domains at a characteristic scale. It
+              provided a starting point for asking what happens when active patterns are later
+              exposed to a reduction in energy.
+            </p>
+            <p class="project-reference">
+              <strong>Initial model reference:</strong> M. E. Cates, D. Marenduzzo,
+              I. Pagonabarraga, and J. Tailleur (2010),
+              <a href="https://arxiv.org/abs/1001.0057" target="_blank" rel="noopener noreferrer">“Arrested phase separation in reproducing bacteria: a generic route to pattern formation?”</a>
+            </p>
+          </div>
+          <figure class="project-figure">
+            <img class="project-detail-image contain-image" src="images/mips-and-atp-quench.png"
+                 alt="Seven-step conceptual illustration of bacteria forming MIPS clusters, birth-and-death arrest, and ATP depletion">
+            <figcaption>
+              The sequence shows how dilute swimmers become crowded, slowing reinforces clustering,
+              and dense and dilute phases emerge. The illustration then shows domain growth being
+              arrested by birth and death, followed by the ATP quench studied in this project.
+            </figcaption>
+            <p class="project-figure-note">AI-generated conceptual illustration; it summarizes the ideas and is not simulation output.</p>
+          </figure>
+          <h3>From this picture to the density model</h3>
+          <div class="project-detail-copy">
+            <p>
+              Rather than simulate each bacterium or a real embryo, I describe the population using
+              its local density ρ(r,t), where r is position and t is time. The model asks whether
+              patterns formed by active motion dissolve, reorganize, or become trapped as ATP is
+              gradually depleted. Its central rule is the continuity equation: density changes only
+              when particles flow into or out of a region.
             </p>
           </div>
           <div class="model-equation continuity" role="math" aria-label="Continuity equation: partial rho with respect to partial t equals negative divergence of J">
@@ -706,23 +817,6 @@
             they flow inward. The model equations below specify this current and the other physical
             processes included in the simulation.
           </p>
-          <h3>Where the model started: bacteria and MIPS</h3>
-          <div class="project-detail-copy">
-            <p>
-              My initial model was inspired by work on reproducing bacteria as self-propelled
-              particles. I began with bacteria because their motion provides a clear example of
-              motility-induced phase separation (MIPS): when particles move more slowly in crowded
-              regions, they can accumulate into dense and dilute patterns without needing to
-              attract one another. Cates and colleagues developed a model of this process and
-              showed how phase separation can become arrested, giving me a starting point for
-              studying how active patterns form and persist.
-            </p>
-            <p class="project-reference">
-              <strong>Initial model reference:</strong> M. E. Cates, D. Marenduzzo,
-              I. Pagonabarraga, and J. Tailleur (2010),
-              <a href="https://arxiv.org/abs/1001.0057" target="_blank" rel="noopener noreferrer">“Arrested phase separation in reproducing bacteria: a generic route to pattern formation?”</a>
-            </p>
-          </div>
           <h3>How crowding can create a pattern</h3>
           <div class="project-detail-copy">
             <p>
@@ -803,21 +897,6 @@
             growth carrying capacity. To make their separate roles easier to follow here, I write
             them as ρ<sub>*</sub> and ρ<sub>max</sub>.
           </p>
-          <h3>Why this paper inspired the project</h3>
-          <div class="project-detail-copy">
-            <p>
-              The paper reports that, during anoxia-induced suspended animation in <em>C. elegans</em>
-              embryos, solid-like PAR protein assemblies preserve long-term spatial memory of cell
-              polarity. I used that result as motivation for asking whether a pattern in a simpler
-              active-matter model can persist after its energy source is removed.
-            </p>
-            <p class="project-reference">
-              <strong>Main reference:</strong> J. Borrego-Pinto, J. Cornwall Scoones, N. Hirani,
-              K. Ng, B. Baum, S. Banerjee, and N. W. Goehring (2026),
-              <a href="https://doi.org/10.64898/2026.06.30.733387" target="_blank" rel="noopener noreferrer">“Solid-like PAR protein assemblies encode long-term spatial memory of cell polarity during suspended animation.”</a>
-              (bioRxiv preprint).
-            </p>
-          </div>
           <h3>Methods and tools</h3>
           <p class="project-tools">
             Python, NumPy, Numba, finite-difference methods, numerical PDE solvers,
