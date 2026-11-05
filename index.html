@@ -696,7 +696,7 @@
             </p>
           </div>
           <figure class="project-figure">
-            <img class="project-detail-image contain-image" src="images/thermodynamic-relaxation.png"
+            <img class="project-detail-image contain-image" src="images/thermodynamic-paradox-hq.png"
                  alt="Conceptual sequence of an ATP-supported organized pattern becoming disordered and uniform after ATP is removed">
             <figcaption>
               The diagram illustrates the conventional expectation: ATP sustains an organized
@@ -758,11 +758,14 @@
               reorientations is the tumbling rate α.
             </p>
           </div>
-          <figure class="project-figure particle-position">
-            <img class="project-detail-image" src="images/particle-initial-position.png"
-                 alt="Coordinate plot showing a particle initialized at the origin">
-            <figcaption>This figure marks an initial particle position at (0, 0); it is a starting snapshot, not a trajectory.</figcaption>
-            <p class="project-figure-note">AI-generated figure.</p>
+          <figure class="project-figure">
+            <img class="project-detail-image contain-image" src="images/run-and-tumble-cates-tailleur-2015.png"
+                 alt="Diagram comparing a bacterium's straight run-and-tumble path with a persistent random trajectory">
+            <figcaption>
+              In run-and-tumble motion, a bacterium travels in a roughly straight run at speed v,
+              then a tumble randomly changes its direction. Adapted from
+              <a href="https://doi.org/10.1146/annurev-conmatphys-031214-014710" target="_blank" rel="noopener noreferrer">Cates &amp; Tailleur (2015)</a>.
+            </figcaption>
           </figure>
           <div class="project-detail-copy">
             <p>
@@ -787,7 +790,7 @@
             </p>
           </div>
           <figure class="project-figure">
-            <img class="project-detail-image contain-image" src="images/mips-and-atp-quench.png"
+            <img class="project-detail-image contain-image" src="images/mips-hq.png"
                  alt="Seven-step conceptual illustration of bacteria forming MIPS clusters, birth-and-death arrest, and ATP depletion">
             <figcaption>
               The sequence shows how dilute swimmers become crowded, slowing reinforces clustering,
@@ -796,6 +799,34 @@
             </figcaption>
             <p class="project-figure-note">AI-generated conceptual illustration; it summarizes the ideas and is not simulation output.</p>
           </figure>
+          <h3>Why MIPS begins: a density fluctuation can grow</h3>
+          <div class="project-detail-copy">
+            <p>
+              The key feedback is that particles move more slowly where they are crowded. They stay
+              there longer, adding to the crowding. If speed falls steeply enough with density, this
+              feedback overcomes the tendency of particles to spread out. The active contribution
+              to diffusion then becomes negative: dense patches draw in particles and grow, while
+              dilute patches lose them. No attractive force is needed.
+            </p>
+            <p>
+              I used a linear stability analysis to locate this onset. Starting from a uniform
+              density, I add a small ripple and ask whether it fades or grows. For the active MIPS
+              part of the model, its growth rate has the opposite sign to the effective diffusivity.
+              Positive diffusivity smooths a ripple; negative diffusivity amplifies it. In the full
+              model, thermal diffusion and the fourth-order term also affect which ripples grow.
+            </p>
+          </div>
+          <div class="model-equation compact" role="math" aria-label="A small density fluctuation grows like an exponential with rate sigma; sigma equals minus the effective diffusivity at the mean density times wave number squared">
+            \[\delta\rho \propto e^{\sigma t+i\mathbf{k}\cdot\mathbf{r}},\qquad
+              \sigma=-\mathcal{D}_{\mathrm{eff}}(\bar\rho)|\mathbf{k}|^2\]
+          </div>
+          <p class="equation-caption">
+            Here k describes the ripple’s size. When \(\mathcal{D}_{\mathrm{eff}}(\bar\rho)&lt;0\),
+            σ is positive and the ripple grows: this is the linear instability that marks the start
+            of MIPS. The dense and dilute phases approach their coexistence, or binodal, densities;
+            in the reproducing-bacteria model, birth and death can arrest domain growth at a
+            characteristic scale.
+          </p>
           <h3>From this picture to the density model</h3>
           <div class="project-detail-copy">
             <p>
@@ -867,9 +898,9 @@
           </p>
           <div class="project-detail-copy">
             <p>
-              The full density equation expands the continuity law by specifying the physical
-              processes that change the density: effective spreading from active motion, thermal
-              diffusion, growth with a carrying capacity, and smoothing at small scales:
+              The continuity equation tracks density changes through particle flow. To represent
+              the additional processes in this project, I expand it with thermal motion, population
+              growth, and a term that smooths very sharp interfaces:
             </p>
           </div>
           <div class="model-equation compact" role="math" aria-label="Full density equation: partial rho over partial t equals divergence of effective diffusion, plus thermal diffusion, logistic growth, minus fourth order smoothing">
@@ -878,12 +909,13 @@
           </div>
           <div class="project-detail-copy">
             <p>
-              D<sub>thermal</sub> sets the strength of thermal diffusion. The logistic term
-              κρ(1 − ρ/ρ<sub>0</sub>) represents growth that slows as the density approaches its
-              carrying capacity. The fourth-order term, k<sub>4</sub>∇<sup>4</sup>ρ, smooths
-              small-scale variations and keeps sharp density boundaries from becoming unstable. The
-              mobility also follows a Vogel–Fulcher–Tammann-inspired relation, so it falls sharply
-              as activity drops and the model approaches glass-like arrest.
+              Each addition has a distinct role. The active term can cluster particles through
+              MIPS. Thermal diffusion represents Brownian kicks that smooth density differences and
+              oppose clustering. The logistic term describes growth when density is low and slows
+              near the carrying capacity ρ<sub>0</sub>, preventing unlimited growth. Finally,
+              −k<sub>4</sub>∇<sup>4</sup>ρ penalizes very sharp boundaries, much like an
+              interfacial-tension effect, and helps keep the patterns smooth. The mobility also
+              falls sharply as ATP drops, allowing the dynamics to approach glass-like arrest.
             </p>
             <p>
               I used simulations to follow the resulting density patterns through the quench: do they
