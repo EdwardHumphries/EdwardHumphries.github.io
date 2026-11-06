@@ -299,6 +299,11 @@
       line-height: 1.8;
       color: #334155;
     }
+    .project-detail[data-project-detail="suspended-animation"] .project-detail-lead,
+    .project-detail[data-project-detail="suspended-animation"] .project-detail-copy {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.005em;
+    }
     .project-detail-copy p + p { margin-top: 1.05em; }
     .model-equation {
       max-width: 850px;
@@ -371,6 +376,9 @@
     .project-figure { margin: 22px 0 28px; }
     .project-figure .project-detail-image { margin-bottom: 8px; }
     .project-figure figcaption { color: var(--muted); font-size: 13px; text-align: center; }
+    .thermodynamic-intro-figure { max-width: 850px; margin: 8px 0 30px; }
+    .thermodynamic-intro-figure .project-detail-image { max-height: 390px; margin: 0 auto 10px; }
+    .thermodynamic-intro-figure figcaption { font-size: 14px; line-height: 1.6; }
     .order-parameter-figures { max-width: 1050px; }
     .order-parameter-art { position: relative; width: 100%; margin: 22px auto 8px; }
     .order-parameter-art img {
@@ -696,6 +704,16 @@
             studied this idea with a continuum model of self-propelled particles, gradually lowering
             their activity to represent ATP depletion.
           </p>
+          <figure class="project-figure thermodynamic-intro-figure">
+            <img class="project-detail-image contain-image" src="images/thermodynamic-paradox-hq.png"
+                 alt="Conceptual sequence of an ATP-supported organized pattern becoming disordered and uniform after ATP is removed">
+            <figcaption>
+              The diagram illustrates the conventional expectation: ATP sustains an organized
+              pattern; after ATP is removed, the pattern decays and the system trends toward a
+              homogeneous, high-entropy state.
+            </figcaption>
+            <p class="project-figure-note">AI-generated conceptual illustration; it is not experimental data or simulation output.</p>
+          </figure>
           <h3>The thermodynamic paradox of survival</h3>
           <div class="project-detail-copy">
             <p>
@@ -713,16 +731,6 @@
               long-lived structure is the starting point for this project.
             </p>
           </div>
-          <figure class="project-figure">
-            <img class="project-detail-image contain-image" src="images/thermodynamic-paradox-hq.png"
-                 alt="Conceptual sequence of an ATP-supported organized pattern becoming disordered and uniform after ATP is removed">
-            <figcaption>
-              The diagram illustrates the conventional expectation: ATP sustains an organized
-              pattern; after ATP is removed, the pattern decays and the system trends toward a
-              homogeneous, high-entropy state.
-            </figcaption>
-            <p class="project-figure-note">AI-generated conceptual illustration; it is not experimental data or simulation output.</p>
-          </figure>
           <h3>Biological inspiration: PAR-3 and suspended animation</h3>
           <div class="project-detail-copy">
             <p>
