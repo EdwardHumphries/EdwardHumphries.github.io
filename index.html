@@ -371,6 +371,22 @@
     .project-figure { margin: 22px 0 28px; }
     .project-figure .project-detail-image { margin-bottom: 8px; }
     .project-figure figcaption { color: var(--muted); font-size: 13px; text-align: center; }
+    .order-parameter-figures { max-width: 1050px; }
+    .order-parameter-art { position: relative; width: 100%; margin: 22px auto 8px; }
+    .order-parameter-art img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .order-parameter-art .title-mask { position: absolute; background: #fff; }
+    .order-parameter-art .mask-left { left: 13.7%; width: 29.5%; }
+    .order-parameter-art .mask-right { left: 61.8%; width: 29.5%; }
+    .order-parameter-art .mask-top { top: 0; height: 6.3%; }
+    .order-parameter-art .mask-bottom { top: 50.8%; height: 6.8%; }
+    .order-parameter-art.formation .mask-top { height: 6.5%; }
+    .order-parameter-art.formation .mask-bottom { top: 50.3%; height: 7%; }
     .project-video-detail { width: 100%; display: block; margin-top: 18px; border-radius: 8px; background: #101827; }
     .simulation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin: 18px 0 26px; }
     .simulation-card { min-width: 0; }
@@ -965,13 +981,38 @@
             ξ₀ and κ₀ set the values when ATP is available. As A(t) falls, both activity and growth
             weaken, with activity dropping more quickly.
           </p>
-          <div class="model-equation compact" role="math" aria-label="Mobility Gamma equals Gamma zero times exponential negative B over effective temperature minus glass transition temperature; effective temperature equals T plus b times A">
-            \[\Gamma(t)=\Gamma_0\exp\!\left[-\frac{B}{T_{\mathrm{eff}}(t)-T_g}\right],\qquad
-              T_{\mathrm{eff}}(t)=T+bA(t)\]
+          <div class="project-detail-copy">
+            <p>
+              To describe the glass-like slowdown, I use a mobility relation inspired by the
+              <a href="https://en.wikipedia.org/wiki/Vogel%E2%80%93Fulcher%E2%80%93Tammann_equation"
+                 target="_blank" rel="noopener noreferrer">Vogel–Fulcher–Tammann (VFT) equation</a>.
+              The VFT law describes how viscosity rises rapidly as a glass-forming material
+              approaches a characteristic temperature. Because mobility measures how readily
+              particles rearrange, I use the inverse form: mobility falls sharply near the glass
+              transition.
+            </p>
+            <p>
+              Here Γ is mobility, Γ₀ is its scale, and B controls how sharply motion slows. The
+              glass-transition temperature T<sub>g</sub> marks the point where rearrangement is
+              strongly suppressed. I let ATP add agitation through an effective temperature
+              T<sub>eff</sub> = T + bA(t), where T is the thermal temperature and b measures the
+              coupling between activity and ATP. As ATP is depleted, T<sub>eff</sub> approaches
+              the glass-transition point and Γ falls toward zero, representing the model’s
+              frozen state.
+            </p>
+          </div>
+          <div class="model-equation compact" role="math" aria-label="VFT viscosity law and inverse mobility law; effective temperature is thermal temperature plus activity coupling times ATP">
+            \[\begin{aligned}
+              \eta(T_{\mathrm{eff}})&=\eta_0\exp\!\left(\frac{B}{T_{\mathrm{eff}}-T_{\mathrm{VF}}}\right),\\
+              \Gamma(t)&=\Gamma_0\exp\!\left[-\frac{B}{T_{\mathrm{eff}}(t)-T_g}\right],\\
+              T_{\mathrm{eff}}(t)&=T+bA(t)
+            \end{aligned}\]
           </div>
           <p class="equation-caption">
-            This mobility relation makes rearrangements slow sharply as ATP is depleted and the
-            effective temperature approaches T_g, representing a glass-like slowdown.
+            The first expression is the standard VFT form for viscosity; the second is the
+            inverse-mobility form used in this model. T<sub>VF</sub> is the VFT reference
+            temperature. The model parameters set how closely the ATP-depleted state approaches
+            T<sub>g</sub>.
           </p>
           <div class="model-equation compact" role="math" aria-label="Diffusivity equals Gamma times xi times speed squared times tau over dimension; effective diffusivity equals Gamma xi tau v zero squared over dimension times exponential negative two rho over rho zero times one minus rho over rho zero">
             \[D(\rho,t)=\Gamma(t)\xi(t)\frac{v(\rho)^2\tau}{d},\qquad
@@ -997,6 +1038,52 @@
               slow rearrangement, allowing us to examine whether patterns relax or remain trapped.
             </p>
           </div>
+          <h3>Tracking cluster structure during an ATP quench</h3>
+          <div class="project-detail-copy">
+            <p>
+              The order parameter σ² measures density variation: larger values indicate stronger
+              clustering. In each run, clusters form first and approach a plateau; the linear ATP
+              quench then begins at the red dashed line, and the purple dashed line marks when ATP
+              reaches zero. In the first comparison, the shorter, 3-unit quench leaves a higher
+              σ² after depletion than the 10-unit quench, consistent with less time for clusters
+              to relax while ATP is being removed.
+            </p>
+          </div>
+          <figure class="project-figure order-parameter-figures">
+            <div class="order-parameter-art quench-comparison">
+              <img src="images/order-parameter-quench-comparison.png"
+                   alt="Two order-parameter histories compare longer and shorter linear ATP quenches, alongside their ATP profiles; plot titles removed">
+              <span class="title-mask mask-left mask-top" aria-hidden="true"></span>
+              <span class="title-mask mask-right mask-top" aria-hidden="true"></span>
+              <span class="title-mask mask-left mask-bottom" aria-hidden="true"></span>
+              <span class="title-mask mask-right mask-bottom" aria-hidden="true"></span>
+            </div>
+            <figcaption>
+              Quench-duration comparison: the upper history uses a 10-unit quench and the lower
+              history a 3-unit quench. The shorter quench retains more order after ATP reaches zero.
+            </figcaption>
+          </figure>
+          <div class="project-detail-copy">
+            <p>
+              The second figure shows two additional runs with 3-unit quenches but different
+              cluster-formation periods. It tracks how the order parameter evolves before and
+              after the quench, and shows that measurable structure remains once ATP reaches zero.
+            </p>
+          </div>
+          <figure class="project-figure order-parameter-figures">
+            <div class="order-parameter-art formation">
+              <img src="images/order-parameter-formation-comparison.png"
+                   alt="Two order-parameter histories with different formation periods and 3-unit linear ATP quenches; plot titles removed">
+              <span class="title-mask mask-left mask-top" aria-hidden="true"></span>
+              <span class="title-mask mask-right mask-top" aria-hidden="true"></span>
+              <span class="title-mask mask-left mask-bottom" aria-hidden="true"></span>
+              <span class="title-mask mask-right mask-bottom" aria-hidden="true"></span>
+            </div>
+            <figcaption>
+              Formation-history comparison: both runs use a 3-unit linear quench, beginning at
+              t = 100 and t = 300 respectively.
+            </figcaption>
+          </figure>
           <figure class="project-figure">
             <video class="project-detail-video" controls playsinline preload="metadata"
                    aria-label="Suspended animation density simulation">
