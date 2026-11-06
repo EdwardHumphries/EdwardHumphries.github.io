@@ -917,11 +917,12 @@
           <h3>How crowding creates a pattern</h3>
           <div class="project-detail-copy">
             <p>
-              The speed law makes the instability concrete: particles in a crowded region move more
-              slowly and remain there longer. When speed decreases sufficiently fast with density,
-              this feedback can outweigh ordinary spreading. The active effective diffusivity then
-              becomes negative, and MIPS separates the system into dense and dilute regions without
-              requiring attractive forces.
+              Density-dependent motility offers a direct explanation for the instability. In
+              crowded regions, collisions slow particles, so they spend more time there. If particle
+              speed falls sufficiently quickly with density, this feedback can outweigh ordinary
+              diffusion. The active effective diffusivity then becomes negative, amplifying density
+              variations and separating the system into dense and dilute regions without attractive
+              forces.
             </p>
           </div>
           <div class="model-equation" role="math" aria-label="Propulsion speed equals v zero times exponential of negative density divided by rho zero">
@@ -1003,8 +1004,8 @@
           </div>
           <div class="model-equation compact" role="math" aria-label="VFT viscosity law and inverse mobility law; effective temperature is thermal temperature plus activity coupling times ATP">
             \[\begin{aligned}
-              \eta(T_{\mathrm{eff}})&=\eta_0\exp\!\left(\frac{B}{T_{\mathrm{eff}}-T_{\mathrm{VF}}}\right),\\
-              \Gamma(t)&=\Gamma_0\exp\!\left[-\frac{B}{T_{\mathrm{eff}}(t)-T_g}\right],\\
+              \eta(T_{\mathrm{eff}})&=\eta_0\exp\!\left(\frac{B}{T_{\mathrm{eff}}-T_{\mathrm{VF}}}\right),\\[0.9em]
+              \Gamma(t)&=\Gamma_0\exp\!\left[-\frac{B}{T_{\mathrm{eff}}(t)-T_g}\right],\\[0.9em]
               T_{\mathrm{eff}}(t)&=T+bA(t)
             \end{aligned}\]
           </div>
@@ -1084,6 +1085,14 @@
               t = 100 and t = 300 respectively.
             </figcaption>
           </figure>
+          <div class="project-detail-copy">
+            <p>
+              The animation below revisits MIPS in a time-dependent simulation. Clusters form
+              first, then ATP is quenched rapidly. As activity and mobility drop, rearrangements
+              slow and the clusters become visibly arrested, leaving the patterns largely
+              preserved through the rest of the simulation.
+            </p>
+          </div>
           <figure class="project-figure">
             <video class="project-detail-video" controls playsinline preload="metadata"
                    aria-label="Suspended animation density simulation">
